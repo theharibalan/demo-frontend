@@ -1,0 +1,146 @@
+/* Remove unwanted margins and paddings */
+.ant-row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  .ant-col {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  .card {
+    border-radius: 10px;
+    margin: 20px 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card img {
+    margin-top: 20px;
+    /* padding: 20px 0 0 0; */
+    border-radius: 10px;
+
+}
+  
+  .card h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .card p {
+    font-size: 14px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .card h3 {
+      font-size: 16px;
+    }
+  
+    .card p {
+      font-size: 12px;
+    }
+  
+    .ant-col {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+  }
+  
+.addProd {
+  border: 0;
+  border-radius: 8px;
+  background-color: red;
+  color: #fff;
+  font-size: 1.5em;
+  padding: 5px 20px;
+  cursor: pointer;
+  margin: 20px 0;
+}
+.poModal::-webkit-scrollbar {
+  display: none;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.popup-content {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  background-color: #fff;
+  padding: 20px;
+  overflow-y: auto; /* Allow horizontal scrolling for mobile */
+}
+
+.Invoice-page {
+  width: 100%;
+  max-width: 100%;
+}
+
+.Invoice-page table {
+  width: 100%; /* Make the table width responsive */
+  table-layout: auto;
+}
+
+.Invoice-page table td, th {
+  word-wrap: break-word; /* Prevent content from overflowing cells */
+}
+
+.Invoice-page textarea, input {
+  width: 100%; /* Make inputs responsive */
+  max-width: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4d4f; /* Red color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #ff7875; /* Lighter red on hover */
+}
+
+@media (max-width: 768px) {
+  .Invoice-page {
+    padding: 10px;
+    font-size: 14px; /* Reduce font size for mobile */
+  }
+
+  .Invoice-page table td, th {
+    padding: 5px; /* Reduce padding for smaller screens */
+  }
+
+  /* Adjust table and layout for mobile */
+  .Invoice-page table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  /* Resize specific elements for mobile */
+  .popup-overlay {
+    padding: 10px;
+  }
+
+  .popup-content {
+    padding: 10px;
+  }
+}

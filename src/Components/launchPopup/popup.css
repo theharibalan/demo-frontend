@@ -1,0 +1,128 @@
+/* Popup container with a backdrop */
+.popup-container {
+  width: 100%;
+  height: 100vh;
+  position: fixed; /* Changed from absolute to fixed for better overlay handling */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5); /* Darker and more subtle overlay */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease; /* Smooth transition for appearance/disappearance */
+}
+
+/* Popup window styling */
+.popup-window {
+  width: 40rem;
+  /* height: 30rem; */
+  background-color: #ffffff;
+  border-radius: 8px; /* Slightly larger radius for a softer look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  padding: 2rem; /* Reduced padding for better content fit */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  gap: 1rem; /* Space between input sections */
+  position: relative; /* Required for positioning the close button */
+}
+
+.popup-window > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.popup-window > div > label {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.select--location {
+  margin-bottom: 1rem;
+}
+
+.select--location > select {
+  margin-left: 0rem !important;
+}
+
+/* Close button styling */
+.close--btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close--btn:hover {
+  color: #ff0000; /* Change color on hover */
+}
+
+/* Styling for form elements */
+.popup-window label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.popup-window select,
+.popup-window input,
+.nav-item {
+  width: 100%;
+  padding: 0.75rem; /* Increased padding for better input area */
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Consistent border-radius with the popup window */
+  font-size: 1rem; /* Ensure readable text */
+  box-sizing: border-box; /* To ensure padding and border are included in the width */
+}
+
+.nav-item {
+  margin-left: 0rem !important;
+  padding: 0.75rem 0.75rem 0rem 0.75rem;
+}
+
+.popup-window select:focus,
+.popup-window input:focus {
+  border-color: #007bff; /* Highlight border color on focus */
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Subtle shadow to indicate focus */
+}
+
+.ctn-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem; /* Adequate padding for better user interaction */
+  font-size: 1.4rem;
+  /* font-weight: bold; Bold text for emphasis */
+  color: #fff; /* White text for contrast */
+  background-color: tomato; /* Primary blue color */
+  border: none;
+  border-radius: 4px; /* Rounded corners for a modern look */
+  cursor: pointer;
+  text-align: center; /* Center the text */
+  /* text-transform: uppercase; Uppercase text for a cleaner appearance */
+  letter-spacing: 0.05rem; /* Slight letter spacing for readability */
+  /* transition: background-color 0.3s ease, transform 0.2s ease, */
+  /* box-shadow 0.3s ease; Smooth transitions */
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); Subtle shadow for depth */
+  position: relative; /* For potential pseudo-element animations */
+  overflow: hidden; /* Contain any pseudo-elements */
+  margin-top: 2rem;
+}
+
+.select--location > select {
+  font-size: 1.2rem;
+}
+
+.goog-te-gadget-simple {
+  border: none;
+}
+
+.goog-te-gadget {
+  margin-top: 0rem !important;
+}

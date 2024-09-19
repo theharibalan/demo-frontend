@@ -1,0 +1,129 @@
+.exclusive-offers--section {
+  padding: 0px 9.6rem;
+  margin: 6rem 0rem;
+  text-align: center;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 4rem;
+}
+
+.item--card {
+  padding: 2rem;
+  border-radius: 11px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.card-wrapper {
+  position: relative;
+}
+
+.discount-tag {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 800;
+  z-index: 1;
+  transform: translate(-25%, -30%);
+  top: 0%;
+  left: 0%;
+}
+
+.discount-tag > img {
+  width: 6rem;
+}
+
+.discount-tag > p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.product-image {
+  /* margin-bottom: 2.2rem; */
+  position: relative;
+}
+
+.deco1 {
+  position: absolute;
+  /* background-color: rgba(255, 0, 0, 0.76); */
+  background-color: #e34646;
+  width: 60%;
+  height: 100%;
+  color: white;
+  border-radius: 100px;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -44%);
+}
+
+.product-image img {
+  width: auto;
+  height: 16rem;
+}
+
+.product-name {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.product-price {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.product-price span {
+  text-decoration: line-through;
+  color: red;
+  margin-right: 0.6rem;
+}
+
+.order-btn {
+  border: none;
+  font-size: 1.4rem;
+  padding: 1rem 3rem;
+  background-color: #51c061;
+  color: #f4f4f4;
+  border-radius: 9px;
+}
+
+.decoration1,
+.decoration2 {
+  position: absolute;
+}
+
+.decoration1 {
+  display: block;
+  /* background-color: red; */
+  width: 100%;
+  height: 50%;
+  z-index: -1;
+  top: 0%;
+  left: 0%;
+}
+
+@media (max-width: 530px) {
+  .hsll {
+    font-size: 3rem;
+    margin-bottom: 5rem;
+  }
+}
+@media (max-width: 450px) {
+  .exclusive-offers--section {
+    padding: 0px 5rem;
+  }
+}

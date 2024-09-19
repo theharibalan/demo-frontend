@@ -1,0 +1,118 @@
+{
+  "LocationOffers": {
+    "Chennai": "20%",
+    "Bangalore": "15%",
+    "AndhraPradesh": "10%",
+    "Hyderabad": "20%",
+    "OtherLocations": {
+      "Delhi": "12%",
+      "Mumbai": "18%"
+    }
+  },
+  "Products": [
+    {
+      "name": "MoongDal",
+      "CommonImage": "moongdal_common.jpg",
+      "costPerUnit": [
+        {
+          "grade": "GradeA",
+          "PricePerUnit": 100,
+          "Image": "moongdal_gradeA.jpg"
+        },
+        {
+          "grade": "GradeB",
+          "PricePerUnit": 90,
+          "Image": "moongdal_gradeB.jpg"
+        },
+        {
+          "grade": "GradeC",
+          "PricePerUnit": 80,
+          "Image": "moongdal_gradeC.jpg"
+        },
+        {
+          "grade": "GradeD",
+          "PricePerUnit": 75,
+          "Image": "moongdal_gradeD.jpg"
+        }
+      ]
+    },
+    {
+      "name": "ToorDal",
+      "CommonImage": "toordal_common.jpg",
+      "costPerUnit": [
+        {
+          "grade": "GradeA",
+          "PricePerUnit": 100,
+          "Image": "toordal_gradeA.jpg"
+        },
+        {
+          "grade": "GradeB",
+          "PricePerUnit": 90,
+          "Image": "toordal_gradeB.jpg"
+        },
+        {
+          "grade": "GradeC",
+          "PricePerUnit": 80,
+          "Image": "toordal_gradeC.jpg"
+        },
+        {
+          "grade": "GradeD",
+          "PricePerUnit": 75,
+          "Image": "toordal_gradeD.jpg"
+        }
+      ]
+    },
+    {
+      "name": "UradDal",
+      "CommonImage": "uraddal_common.jpg",
+      "costPerUnit": [
+        {
+          "grade": "GradeA",
+          "PricePerUnit": 100,
+          "Image": "uraddal_gradeA.jpg"
+        },
+        {
+          "grade": "GradeB",
+          "PricePerUnit": 90,
+          "Image": "uraddal_gradeB.jpg"
+        },
+        {
+          "grade": "GradeC",
+          "PricePerUnit": 80,
+          "Image": "uraddal_gradeC.jpg"
+        },
+        {
+          "grade": "GradeD",
+          "PricePerUnit": 75,
+          "Image": "uraddal_gradeD.jpg"
+        }
+      ]
+    },
+    {
+      "name": "GramDal",
+      "CommonImage": "gramdal_common.jpg",
+      "costPerUnit": [
+        {
+          "grade": "GradeA",
+          "PricePerUnit": 100,
+          "Image": "gramdal_gradeA.jpg"
+        },
+        {
+          "grade": "GradeB",
+          "PricePerUnit": 90,
+          "Image": "gramdal_gradeB.jpg"
+        },
+        {
+          "grade": "GradeC",
+          "PricePerUnit": 80,
+          "Image": "gramdal_gradeC.jpg"
+        },
+        {
+          "grade": "GradeD",
+          "PricePerUnit": 75,
+          "Image": "gramdal_gradeD.jpg"
+        }
+      ]
+    }
+  ]
+}

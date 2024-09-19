@@ -1,0 +1,443 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fafafa;
+  padding: 1.2rem 3rem;
+
+  border-bottom: 3px solid #ff0e0e;
+
+  position: relative;
+}
+
+.header ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header ul li {
+  list-style: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.header ul li:hover {
+  background-color: #ff0e0e;
+  border: none;
+  color: #f4f4f4;
+}
+
+.header ul .active-header {
+  background-color: #ff0e0e;
+  border: none;
+  color: #f4f4f4;
+}
+
+.logo {
+  width: 7rem;
+  height: auto;
+  /* border-right: 1px solid #0000004f; */
+}
+.logo:hover {
+  cursor: pointer;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  padding: 1.2rem 3rem;
+  border-bottom: 3px solid #ff0e0e;
+  position: relative; /* To position the menu icon absolutely */
+}
+
+.logo {
+  width: 7rem;
+  height: auto;
+}
+
+.nav-ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0%;
+}
+
+.nav-ul li {
+  list-style: none;
+  font-size: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.menu-icon {
+  display: none; /* Hide the menu icon by default */
+  font-size: 2rem;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+@media (max-width: 900px) {
+  .nav-ul {
+    display: none; /* Hide the navigation menu */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fafafa;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    border-bottom: 3px solid #ff0e0e;
+  }
+
+  .nav-ul.active {
+    display: flex; /* Show the menu when active */
+  }
+
+  .nav-ul li {
+    font-size: 1.2rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .menu-icon {
+    display: block; /* Show the menu icon on smaller screens */
+  }
+}
+
+/* Small Devices (Phones) */
+@media (max-width: 600px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .logo {
+    width: 5rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  padding: 1.2rem 3rem;
+  border-bottom: 3px solid #ff0e0e;
+  position: relative;
+}
+
+.logo {
+  width: 7rem;
+  height: auto;
+}
+
+.nav-ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-ul li {
+  list-style: none;
+  font-size: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* .nav-ul li:first-child {
+  background-color: #ff0e0e;
+  border: none;
+  color: #f4f4f4;
+} */
+
+.menu-icon {
+  display: none; /* Hide the menu icon by default */
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Media Queries */
+
+/* Medium Devices (Tablets) */
+@media (max-width: 900px) {
+  .nav-ul {
+    display: none; /* Hide the navigation menu by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fafafa;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    border-bottom: 3px solid #ff0e0e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for dropdown effect */
+    transition: max-height 0.3s ease; /* Smooth transition for dropdown effect */
+    max-height: 0; /* Initially collapsed */
+    overflow: hidden; /* Hide overflowing content */
+
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .nav-ul.active {
+    display: flex; /* Show the menu when active */
+    max-height: 500px; /* Adjust as needed to fit all content */
+  }
+
+  .nav-ul li {
+    font-size: 1.2rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .menu-icon {
+    display: block; /* Show the menu icon on smaller screens */
+  }
+}
+
+@media (max-width: 500px) {
+  .registration-highlight-card {
+    width: 90vw !important;
+  }
+}
+
+/* Small Devices (Phones) */
+@media (max-width: 600px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .logo {
+    width: 5rem;
+  }
+}
+
+.WelcomeText {
+  margin-right: auto;
+  margin-left: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcone---note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0 !important;
+  font-size: 1.4rem;
+  border: 1px solid #3333339a;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+}
+@media (max-width: 420px) {
+  .welcone---note {
+    font-size: 1em;
+  }
+}
+.sellerpage--h2 {
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (max-width: 420px) {
+  .sellerpage--h2 {
+    font-size: 1.5rem;
+  }
+}
+.logo-border--right {
+  border-right: 1px solid #0000004f;
+}
+
+.personIcon {
+  width: 3rem;
+}
+
+.welcome--name {
+  font-size: 1.6rem;
+  text-transform: lowercase;
+  font-weight: 500;
+}
+
+.adminPage--h2 {
+  margin-right: auto;
+  margin-bottom: 0 !important;
+  margin-left: 2rem !important;
+}
+
+.rhc-close--btn {
+  position: absolute;
+  top: 7%;
+  right: 3%;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.registration-highlight-card {
+  position: absolute;
+  top: 80%;
+  right: 2%;
+
+  width: 45rem;
+  /* height: 18rem; */
+  background-color: white;
+  z-index: 100;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid #3333334f;
+  padding-bottom: 1.8rem;
+  /* padding: 2rem 1.4rem; */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.registration-highlight-card > p {
+  margin-bottom: 0rem !important;
+}
+
+.corner-peak {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background-color: white;
+  transform: translate(-60px, -6px) rotate(45deg);
+}
+
+.registration-highlight-card > p:nth-child(2) {
+  font-size: 1.4rem;
+  font-weight: 400;
+  width: 100%;
+  text-align: left;
+  padding-left: 1.4rem;
+  padding-top: 2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #33333363;
+}
+.registration-highlight-card > p:nth-child(3) {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1.2rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  /* margin-bottom: 1.4rem; */
+  /* width: 100%; */
+}
+
+.registration-highlight-card > p:nth-child(4) {
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-top: 1.2rem;
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-bottom: 1.4rem !important;
+  line-height: 1.2;
+}
+
+.registration-highlight-card > button {
+  border: none;
+  font-family: inherit;
+  padding: 1.2rem 1.4rem;
+  margin-top: auto;
+  margin-left: 2rem;
+  background-color: #ff0e0e;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 4px;
+}
+
+/* Animation for bouncing effect */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0); /* Starting and ending at original position */
+  }
+  50% {
+    transform: translateY(-10px); /* Move up by 10px */
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Initial state for fade in/out */
+.registration-highlight-card {
+  /* opacity: 0; */
+  position: absolute;
+  top: 80%;
+  right: 2%;
+  width: 45rem;
+  background-color: white;
+  z-index: 100000000;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid #3333334f;
+  padding-bottom: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  animation: bounce 2s infinite;
+}
+
+/* Class to trigger the fade-in and animation when the card opens */
+/* .registration-highlight-card.active {
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+/* Fade out effect for closing */
+/* .registration-highlight-card.fade-out {
+  opacity: 0;
+  transform: translateY(20px); 
+} */
+
+/* Button styling remains the same */
+.registration-highlight-card > button {
+  border: none;
+  font-family: inherit;
+  padding: 1.2rem 1.4rem;
+  margin-top: auto;
+  margin-left: 2rem;
+  background-color: #ff0e0e;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 4px;
+}
