@@ -1,0 +1,37 @@
+name: Deploy Node Application
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        
+      - name: Build Docker Image
+        run: docker build -t haribalans/b2bhubindia --build-arg REACT_APP_NODE_ENV='production' --build-arg REACT_APP_SERVER_BASE_URL='${{ secrets.REACT_APP_SERVER_BASE_URL }}' .
+        
+      - name: Publish Image to Docker Hub
+        run: docker push haribalans/b2bhubindia:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted 
+    steps:
+      - name: Pull Image from Docker Hub
+        run: sudo docker pull haribalans/b2bhubindia:latest
+        
+      - name: Stop and Remove Old Container
+        run: |
+          sudo docker stop reactjs-app-container || true
+          sudo docker rm reactjs-app-container || true
+          
+      - name: Run Docker Container
+        run: sudo docker run -d -p 80:3000 --name reactjs-app-container haribalans/b2bhubindia:latest
