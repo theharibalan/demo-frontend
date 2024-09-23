@@ -34,4 +34,4 @@ jobs:
           sudo docker rm reactjs-app-container || true
           
       - name: Run Docker Container
-        run: sudo docker run -d -p 80:3000 --name reactjs-app-container haribalans/b2bhubindia:latest
+        run: sudo docker run -d -p 80:80 --name reactjs-app-container haribalans/b2bhubindia:latest
