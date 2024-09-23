@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Spin } from "antd";
 import { Modal } from "antd";
+import GoogleTag from "./GoogleTag";
 const LoginForm = () => {
   const navigate = useNavigate();
   localStorage.setItem("loginstate", "false");
@@ -172,6 +173,7 @@ const LoginForm = () => {
 
   return (
     <>
+    <GoogleTag/>
       <ToastContainer />
       <div className="bggram">
       <div className="login_form_contianer">

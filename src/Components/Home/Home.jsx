@@ -6,6 +6,8 @@ import trade from "../../assets/startTrading.jpeg";
 import CustomerReviews from "../PageComponents/Reviews";
 import Popupp from "../launchPopup/Popupp";
 import NavBar from "../PageComponents/Navbar";
+import GoogleTag from "../GoogleTag";
+
 
 export default function Home() {
   const [selectedLocation, setSelectedLocation] = useState("Chennai");
@@ -25,6 +27,7 @@ export default function Home() {
 
   return (
     <div>
+      <GoogleTag/>
       {/* <NavBar/> */}
       {localStorage.getItem('loggedas')?"":(<>
         <Popupp
