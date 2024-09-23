@@ -389,7 +389,7 @@ const Products = ({ location }) => {
     <div className="product-container-holder">
       <ToastContainer />
       <h2 style={{ marginTop: "30px" }} className=" offerHeading">
-        Exclusive Offers{" "}
+        Exclusive Offers available here{" "}
       </h2>
       <div className="products-container">
         {/* Show spinner while loading */}
