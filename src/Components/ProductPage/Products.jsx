@@ -22,7 +22,7 @@ import {
   Checkbox,
   message,
   Spin,
-  Empty
+  Empty,
 } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -41,7 +41,6 @@ const locationOffers = {
 
 const gunnyBagCost = 50;
 
-// const products = [
 //   {
 //     name: "MoongDal",
 //     CommonImage: moongdal_GradeA,
@@ -137,7 +136,6 @@ const checkNoTime = (product) => {
   }
 };
 
-// const products = [
 //   {
 //     name: "Moong Dal",
 //     CommonImage: moongdal_GradeA,
@@ -257,7 +255,7 @@ const Products = ({ location }) => {
         setLoading(false);
         // console.log(err);
       });
-  });
+  }, []);
   const [breakdown, setBreakdown] = useState({
     totalPrice: 0,
     gunnyBagTotal: 0,
@@ -389,12 +387,12 @@ const Products = ({ location }) => {
     <div className="product-container-holder">
       <ToastContainer />
       <h2 style={{ marginTop: "30px" }} className=" offerHeading">
-        Exclusive Offers available here{" "}
+        Exclusive Offers{" "}
       </h2>
       <div className="products-container">
         {/* Show spinner while loading */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>
+          <div style={{ textAlign: "center", padding: "50px" }}>
             <Spin size="large" />
           </div>
         ) : products.length === 0 ? (
@@ -408,14 +406,17 @@ const Products = ({ location }) => {
               <div className="product-card" key={product.name}>
                 <div className="membership--badge">
                   {console.log(product)}
-                  { product.category === "PLATINUM" ? (
+                  {product.category === "PLATINUM" ? (
                     <>
-                  <img src={platinum} alt="" className="badge-img" />
-                  <span>{product.category}</span>
+                      <img src={platinum} alt="" className="badge-img" />
+                      <span>{product.category}</span>
                     </>
-                  ) : (<>
-                  <img src={gold} alt="" className="badge-img" />
-                  <span>{product.category}</span></>)}
+                  ) : (
+                    <>
+                      <img src={gold} alt="" className="badge-img" />
+                      <span>{product.category}</span>
+                    </>
+                  )}
                 </div>
 
                 <div className="product-image-container">
@@ -437,7 +438,11 @@ const Products = ({ location }) => {
                   <div className="product-unit">
                     <p className="offer-price1">
                       <span>₹</span>
-                      <span>{gradeAUnit.PricePerUnit.toFixed(2)}</span>
+                      <span>
+                        {gradeAUnit.PricePerUnit != null
+                          ? gradeAUnit.PricePerUnit.toFixed(2)
+                          : "N/A"}
+                      </span>
                       <span>/kg</span>
                     </p>
                   </div>
@@ -466,12 +471,13 @@ const Products = ({ location }) => {
                     Loaction: {product.location}
                   </p>
 
-
                   <span className="line-divider"></span>
                   <div className="button--price">
                     <p className="offer-price">
                       <span>₹</span>
-                      <span>{gradeAUnit.PricePerUnit.toFixed(2)}</span>
+                      <span>{gradeAUnit.PricePerUnit != null
+                          ? gradeAUnit.PricePerUnit.toFixed(2)
+                          : "N/A"}</span>
                       <span>/kg</span>
                     </p>
                     <button
@@ -521,7 +527,8 @@ const Products = ({ location }) => {
                   <Select.Option key={item.grade} value={item.grade}>
                     {`${item.grade} ${" "}₹ ${formatIndianNumber(
                       item.PricePerUnit
-                    )} `}<span>/KG </span>
+                    )} `}
+                    <span>/KG </span>
                   </Select.Option>
                 ))}
             </Select>

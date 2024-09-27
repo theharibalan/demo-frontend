@@ -3,8 +3,10 @@ import { IoArrowDownOutline } from "react-icons/io5";
 import { IoMdArrowUp } from "react-icons/io";
 import { DownloadOutlined } from "@ant-design/icons";
 import axios from "axios";
-import "../../admin.css"
+import "../../admin.css";
 import { Button } from "antd";
+import { Input } from "antd";
+
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import { toast } from "react-toastify";
@@ -15,14 +17,21 @@ const List_of_sellers = () => {
   // sorting and filtering
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("ascend");
-  
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/b2b/getAllSellers`,{}
+          `${process.env.REACT_APP_BACKEND_URL}/b2b/getAllSellers`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         setData(res.data); // Set the fetched data to the state
         console.log("sellerdata", res.data); // Log the actual data
@@ -30,15 +39,14 @@ const List_of_sellers = () => {
         console.log(error);
         toast.error("Error while fetching customers data.", {
           position: "top-center",
-          
         });
       }
     };
-  
+
     fetchData(); // Automatically call the async function when the component mounts
   }, []);
-  
-console.log("Fetched Data:",data);
+
+  console.log("Fetched Data:", data);
 
   const exportToExcel = () => {
     // Format the data for Excel export
@@ -71,13 +79,14 @@ console.log("Fetched Data:",data);
 
     // Append current date and time to the filename
     const now = new Date();
-    const date = `${now.getFullYear()}`-`${String(now.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}`-`${String(now.getDate()).padStart(2, "0")}`;
-    const time = `${String(now.getHours()).padStart(2, "0")}`-`${String(
-      now.getMinutes()
-    ).padStart(2, "0")}`-`${String(now.getSeconds()).padStart(2, "0")}`;
+    const date =
+      `${now.getFullYear()}` -
+      `${String(now.getMonth() + 1).padStart(2, "0")}` -
+      `${String(now.getDate()).padStart(2, "0")}`;
+    const time =
+      `${String(now.getHours()).padStart(2, "0")}` -
+      `${String(now.getMinutes()).padStart(2, "0")}` -
+      `${String(now.getSeconds()).padStart(2, "0")}`;
     const timestamp = `${date}_${time}`;
     const filename = `Sellers_Report_${timestamp}.xlsx`;
 
@@ -85,10 +94,9 @@ console.log("Fetched Data:",data);
     XLSX.writeFile(workbook, filename);
   };
   // ------------------------------------------------------------------------------
-  
 
   const handleSort = () => {
-    data.reverse()
+    data.reverse();
     setSortOrder((prevSortOrder) =>
       prevSortOrder === "ascend" ? "descend" : "ascend"
     );
@@ -97,33 +105,48 @@ console.log("Fetched Data:",data);
   // When "View" is clicked, show Listofproducts component
   const handleViewClick = (seller) => {
     console.log(seller);
-    
     navigate("/admin@b2b/b2bhubindia/seller-products", { state: { seller } });
   };
+  const filteredSellers = data.filter((item) => {
+    return (item.CompanyName ? item.CompanyName : "").includes(searchQuery);
+  });
 
   return (
     <div className="seller-cont">
-      
-     
       <div className="  order-tables ">
-      <div style={{display:"flex" ,justifyContent:"space-between"}}>
-      <p>Sellers <Button className="sort-button" onClick={handleSort}>
-            {sortOrder === "ascend" ? <IoMdArrowUp /> : <IoArrowDownOutline />}
-          </Button></p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <p>
+              Sellers
+              <Button className="sort-button" onClick={handleSort}>
+                {sortOrder === "ascend" ? (
+                  <IoMdArrowUp />
+                ) : (
+                  <IoArrowDownOutline />
+                )}
+              </Button>
+            </p>
+          </div>
+
           <div>
-            
-          <input
-          style={{margin:"1em"}}
-            type="text"
-            placeholder="Search Seller"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
-          <Button
-            icon={<DownloadOutlined />}
-            onClick={exportToExcel}
-          ></Button>
+            <Input
+              style={{ width: "400px" }}
+              type="text"
+              placeholder="Search by Seller Name "
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+
+            <Button
+              icon={<DownloadOutlined />}
+              onClick={exportToExcel}
+            ></Button>
           </div>
         </div>
         <table className="table yellow-table ">
@@ -137,7 +160,7 @@ console.log("Fetched Data:",data);
             </tr>
           </thead>
           <tbody>
-            {data.map((e, index) => (
+            {filteredSellers.map((e, index) => (
               <tr key={index}>
                 <td>{e.CompanyName}</td>
                 <td>{e.gstNo}</td>

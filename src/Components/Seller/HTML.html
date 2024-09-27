@@ -1,204 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Invoice</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
-        .invoice {
-            width: 210mm;  /* A4 width */
-            height: 297mm; /* A4 height */
-            padding: 20mm;
-            margin: 0 auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            page-break-after: always;
-            overflow: hidden; /* Prevent content overflow */
-            position: relative; /* For absolute positioning of elements */
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-        th, td {
-            border: 1px solid #000;
-            padding: 10px;
-            text-align: left;
-				line-height: 20px;
-        }
-        input[type="text"] {
-            width: 100%;
-            border: none;
-            outline: none;
-            box-shadow: none;
-        }
-        input[type="text"]:focus {
-            border: 1px solid #007bff; /* Optional: Change border color on focus */
-        }
-        .center {
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+      }
+      .invoice {
+        width: 210mm; /* A4 width */
+        height: 297mm; /* A4 height */
+        padding: 20mm;
+        margin: 0 auto;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        page-break-after: always;
+        overflow: hidden; /* Prevent content overflow */
+        position: relative; /* For absolute positioning of elements */
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: left;
+        line-height: 20px;
+      }
+      input[type="text"] {
+        width: 100%;
+        border: none;
+        outline: none;
+        box-shadow: none;
+      }
+      input[type="text"]:focus {
+        border: 1px solid #007bff; /* Optional: Change border color on focus */
+      }
+      .center {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="invoice">
-        <div class="center">Invoice Title</div>
+      <div class="center">Invoice Title</div>
 
-        <table>
-            <tr>
-                <td rowspan="3" style="width: 35%;">
-                    <strong>From</strong><br />
-                    <textarea rows="5" placeholder="Enter From Address" style="width: 100%; border: none;"></textarea>
-                </td>
-                <td>
-                    Credit Note No.<br />
-                    <input type="text" placeholder="Enter Credit Note No">
-                </td>
-                <td>
-                    Credit Date No.<br />
-                    <input type="text" placeholder="Enter Credit Date">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Invoice No.<br />
-                    <input type="text" placeholder="Enter Invoice No">
-                </td>
-                <td>
-                    Other References<br />
-                    <input type="text" placeholder="Enter Other References">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Mode/Terms of Payment<br />
-                    <input type="text" placeholder="Enter Mode of Payment">
-                </td>
-                <td>
-                    Dispatched No.<br />
-                    <input type="text" placeholder="Enter Dispatch Number">
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="3">
-                    <strong>Consignee (Ship To)</strong><br />
-                    <strong>VTS ENTERPRISES INDIA PVT LTD</strong><br />
-                    NO 3B, 3RD FLOOR,<br />
-                    25 PARK CENTER VENKATARAYANA ROAD<br />
-                    T.NAGAR CHENNAI<br />
-                    600017
-                </td>
-                <td>Buyer's Order No.</td>
-                <td>Dated</td>
-            </tr>
-            <tr>
-                <td>Dispatched</td>
-                <td style="font-weight: bold;">CHENNAI</td>
-            </tr>
-        </table>
+      <table>
+        <tr>
+          <td rowspan="3" style="width: 35%;">
+            <strong>From</strong><br />
+            <textarea
+              rows="5"
+              placeholder="Enter From Address"
+              style="width: 100%; border: none;"
+            ></textarea>
+          </td>
+          <td>
+            Credit Note No.<br />
+            <input type="text" placeholder="Enter Credit Note No" />
+          </td>
+          <td>
+            Credit Date No.<br />
+            <input type="text" placeholder="Enter Credit Date" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Invoice No.<br />
+            <input type="text" placeholder="Enter Invoice No" />
+          </td>
+          <td>
+            Other References<br />
+            <input type="text" placeholder="Enter Other References" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Mode/Terms of Payment<br />
+            <input type="text" placeholder="Enter Mode of Payment" />
+          </td>
+          <td>
+            Dispatched No.<br />
+            <input type="text" placeholder="Enter Dispatch Number" />
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3">
+            <strong>Consignee (Ship To)</strong><br />
+            <strong>VTS ENTERPRISES INDIA PVT LTD</strong><br />
+            NO 3B, 3RD FLOOR,<br />
+            25 PARK CENTER VENKATARAYANA ROAD<br />
+            T.NAGAR CHENNAI<br />
+            600017
+          </td>
+          <td>Buyer's Order No.</td>
+          <td>Dated</td>
+        </tr>
+        <tr>
+          <td>Dispatched</td>
+          <td style="font-weight: bold;">CHENNAI</td>
+        </tr>
+      </table>
 
-        <br/>
+      <br />
 
-        <table>
-            <thead>
-                <tr>
-                    <th>S.no.</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Rate</th>
-                    <th>Per</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Product Type</td>
-                    <td>Product Qty</td>
-                    <td>Product Price</td>
-                    <td>TONNE</td>
-                    <td>Total Amount</td>
-                </tr>
-                <tr>
-                    <td colspan="5">Total (GST Exempted)</td>
-                    <td>Total Amount</td>
-                </tr>
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>S.no.</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Per</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Product Type</td>
+            <td>Product Qty</td>
+            <td>Product Price</td>
+            <td>TONNE</td>
+            <td>Total Amount</td>
+          </tr>
+          <tr>
+            <td colspan="5">Total (GST Exempted)</td>
+            <td>Total Amount</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <br/>
-        <div><strong>GST Exempted</strong></div>
-        <br>
+      <br />
+      <div><strong>GST Exempted</strong></div>
+      <br />
 
-        <table>
-            <thead>
-                <tr>
-                    <th>HSN/SAC<br />
-                        <input type="text" placeholder="Enter HSN Code">
-                    </th>
-                    <th>CGST %<br />
-                        <input type="text" placeholder="Enter CGST %">
-                    </th>
-                    <th>SGST %<br />
-                        <input type="text" placeholder="Enter SGST %">
-                    </th>
-                    <th>IGST %<br />
-                        <input type="text" placeholder="Enter IGST %">
-                    </th>
-                    <th>Total Tax Amount</th>
-                    <th>Total Amount with Tax</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>HSN Code</td>
-                    <td>CGST Amount</td>
-                    <td>SGST Amount</td>
-                    <td>IGST Amount</td>
-                    <td>Total GST</td>
-                    <td>Total Amount with GST</td>
-                </tr>
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              HSN/SAC<br />
+              <input type="text" placeholder="Enter HSN Code" />
+            </th>
+            <th>
+              CGST %<br />
+              <input type="text" placeholder="Enter CGST %" />
+            </th>
+            <th>
+              SGST %<br />
+              <input type="text" placeholder="Enter SGST %" />
+            </th>
+            <th>
+              IGST %<br />
+              <input type="text" placeholder="Enter IGST %" />
+            </th>
+            <th>Total Tax Amount</th>
+            <th>Total Amount with Tax</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HSN Code</td>
+            <td>CGST Amount</td>
+            <td>SGST Amount</td>
+            <td>IGST Amount</td>
+            <td>Total GST</td>
+            <td>Total Amount with GST</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <div style="margin-top: 20px; font-size: 12px; line-height: 25px;">
-            Total Amount (in words): <br /> 
-            <strong>INR AMOUNT IN WORDS ONLY</strong> <br /> <br />
-            <strong>Company's Bank Details:</strong> <br />
-            Bank Name: PUNJAB NATIONAL BANK <br />
-            A/C No.: 3940002100057010 <br />
-            IFSC Code: PUNB0394000 <br />
-            Branch: Tiruvanmiyur, CHENNAI <br />
-        </div>
+      <div style="margin-top: 20px; font-size: 12px; line-height: 25px;">
+        Total Amount (in words): <br />
+        <strong>INR AMOUNT IN WORDS ONLY</strong> <br />
+        <br />
+        <strong>Company's Bank Details:</strong> <br />
+        Bank Name: PUNJAB NATIONAL BANK <br />
+        A/C No.: 3940002100057010 <br />
+        IFSC Code: PUNB0394000 <br />
+        Branch: Tiruvanmiyur, CHENNAI <br />
+      </div>
 
-        <div style="margin-top: 20px; font-size: 12px;">
-            <strong>Declaration:</strong> <br /><br />
-            We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.
-        </div>
+      <div style="margin-top: 20px; font-size: 12px;">
+        <strong>Declaration:</strong> <br /><br />
+        We declare that this invoice shows the actual price of the goods
+        described and that all particulars are true and correct.
+      </div>
 
-        <hr />
-        <div style="text-align: right; margin-top: 40px;">
-            <strong>For VTS ENTERPRISES INDIA PVT LTD</strong><br />
-            <img src="https://res.cloudinary.com/dalzs7bc2/image/upload/v1726081842/stamp_iftjrw.png" alt="stamp" width="100px"><br>
-            <strong>Authorised Signature</strong>
-        </div>
-
+      <hr />
+      <div style="text-align: right; margin-top: 40px;">
+        <strong>For VTS ENTERPRISES INDIA PVT LTD</strong><br />
+        <img
+          src="https://res.cloudinary.com/dalzs7bc2/image/upload/v1726081842/stamp_iftjrw.png"
+          alt="stamp"
+          width="100px"
+        /><br />
+        <strong>Authorised Signature</strong>
+      </div>
     </div>
 
     <div style="text-align: center; margin-top: 20px;">
-        <button style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="window.print()">Generate Invoice</button>
+      <button
+        style="
+          display: inline-block;
+          margin-top: 20px;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+        onclick="window.print()"
+      >
+        Generate Invoice
+      </button>
     </div>
-
-</body>
+  </body>
 </html>

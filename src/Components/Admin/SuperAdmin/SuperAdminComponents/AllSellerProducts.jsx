@@ -18,9 +18,6 @@ import "./sellerEachcard.css";
 
 const Listofproducts = () => {
   const [data, setData] = useState([]);
-  const [token, settoken] = useState(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXJhbmtvbmRhQGdtYWlsLmNvbSIsImlhdCI6MTcyNjA1NDQ3NywiZXhwIjoxNzI2MTQwODc3fQ.4NC-sOl3BSLxi_Ca1BK-h6ILPs1IGLoG5S4eAuh3lBM"
-  );
   const [publishModelOpen, setPublishModelOPen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState();
   const handleFetch = async () => {
@@ -93,7 +90,7 @@ const Listofproducts = () => {
         JSON.stringify(formData),
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
             "Content-Type": "application/json",
           },
         }
@@ -171,7 +168,12 @@ const Listofproducts = () => {
       productId: selectedProduct.productId,
     };
     axios
-      .post(adminAddProductUrl, publishData)
+      .post(adminAddProductUrl, publishData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         message.success("Product Published Successfully");
         setPublishModelOPen(false);

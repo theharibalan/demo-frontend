@@ -8,7 +8,8 @@ import b2blogo from "../assests/images/b2b-logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 import personicon from "../../../assets/personIcon.png";
-
+import axios from "axios";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 function Header({ isadmin }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,6 +17,34 @@ function Header({ isadmin }) {
   const [isActivetab, setisActiveTab] = useState(location.pathname);
   const [showRegistrationCard, setShowRegistrationCard] = useState(false);
 
+  // useEffect(()=>{
+  //   axios.post(`${process.env.REACT_APP_BACKEND_URL}/b2b/verifyCustomerToken`)
+  //   .then(res=>{
+  //     console.log()
+  //   })
+  //   .catch(err=>{
+  //     handleLogout()
+  //   }) 
+  //   axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/verifyAdminToken`)
+  //   .then(res=>{
+  //     console.log()
+  //   })
+  //   .catch(err=>{
+  //     handleLogout()
+  //   })
+  // },[])
+
+  // useEffect(()=>{
+
+  //   axios.post(`${process.env.REACT_APP_BACKEND_URL}/b2b/verifyCustomerToken`)
+  //   .then(res=>{
+  //     console.log()
+  //   })
+  //   .catch(err=>{
+  //     handleLogout()
+  //   })
+   
+  // },[])
   useEffect(() => {
     setisActiveTab(location.pathname);
 
@@ -49,7 +78,7 @@ function Header({ isadmin }) {
 
   return (
     <>
-      {location.pathname === "/admin@b2b/b2bhubindia" ? (
+      {location.pathname === "/admin@b2b/b2bhubindia" || location.pathname === "/admin@b2b/b2bhubindia/seller-products" || location.pathname === "/admin@b2b/b2bhubindia/commercial/proformaInvoice" || location.pathname === "/admin@b2b/b2bhubindia/commercial/salesInvoice" || location.pathname === "/admin@b2b/b2bhubindia/commercial/workOrder" || location.pathname === "/admin@b2b/b2bhubindia/commercial/purchaseOrder" || location.pathname === "/admin@b2b/b2bhubindia/commercial/deliveryChallan"? (
         <header className="header">
           <img
             className="logo logo-border--right"
@@ -60,6 +89,13 @@ function Header({ isadmin }) {
           <h1 className="adminPage--h2">Admin Page</h1>
           {localStorage.getItem("admin-token") ? (
             <ul className={`nav-ul ${isMenuOpen ? "active" : ""}`}>
+              <li
+                className={isActivetab === "/" ? "active-header" : ""}
+                onClick={() => navigate(-1)}
+              >
+                <IoArrowBackCircleOutline style={{ marginRight: "0",fontSize:"1.5em" }} />
+                Back
+              </li>
               <li
                 className={isActivetab === "/" ? "active-header" : ""}
                 onClick={() => handleLogout()}
@@ -75,12 +111,11 @@ function Header({ isadmin }) {
       ) : (
         <header className="header">
           <img
-            className={`logo ${
-              localStorage.getItem("loggedas") === "Seller Page" ||
-              localStorage.getItem("loggedas") === "Buyer Page"
+            className={`logo ${localStorage.getItem("loggedas") === "Seller Page" ||
+                localStorage.getItem("loggedas") === "Buyer Page"
                 ? "logo-border--right"
                 : ""
-            }`}
+              }`}
             src={b2blogo}
             alt="B2B Logo"
             onClick={() => navigate("/")}
@@ -103,7 +138,7 @@ function Header({ isadmin }) {
               <AiOutlineHome /> Home
             </li>
             {localStorage.getItem("loggedas") === "Seller Page" &&
-            localStorage.getItem("loggedas") ? (
+              localStorage.getItem("loggedas") ? (
               <li
                 className={
                   isActivetab === "/listofproducts" ? "active-header" : ""
@@ -201,7 +236,7 @@ function Header({ isadmin }) {
           )}
 
           {localStorage.getItem("loggedas") === "Seller Page" ||
-          localStorage.getItem("loggedas") === "Buyer Page" ? (
+            localStorage.getItem("loggedas") === "Buyer Page" ? (
             <p className="welcone---note">
               <img className="personIcon" src={personicon} alt="" />
               <span className="welcome--name">

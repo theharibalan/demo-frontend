@@ -1,0 +1,162 @@
+@tailwind components;
+@tailwind utilities;
+
+@keyframes typing {
+    0% { opacity: 0; }
+    15% { opacity: 1; }
+    30% {opacity:0;}
+    50% { opacity: 1; }
+    75% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  /* Apply the animation to the typing text */
+  .typing {
+    font-size: 0.9rem;
+    color: #888;
+    animation: typing 2s infinite;
+  }
+
+
+  /* Chat-Head */
+
+  .bg-gradient-to-r {
+    background: linear-gradient(to right, #f56565, #e53e3e) !important;
+  }
+  
+  .text-white {
+    color: #ffffff;
+  }
+  
+  .p-3 {
+    padding: 0.75rem;
+  }
+  
+  .rounded-t-lg {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .w-10 {
+    width: 2.5rem;
+  }
+  
+  .h-10 {
+    height: 2.5rem;
+  }
+  
+  .mr-2 {
+    margin-right: 0.5rem;
+  }
+  
+  .rounded-full {
+    border-radius: 9999px;
+  }
+  
+  .lg\\:w-12 {
+    width: 3rem;
+  }
+  
+  .lg\\:h-12 {
+    height: 3rem;
+  }
+  
+  .text-lg {
+    font-size: 1.125rem;
+  }
+  
+  .font-bold {
+    font-weight: 700;
+  }
+  
+  .flex-grow {
+    flex-grow: 1;
+  }
+  
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .lg\\:text-xl {
+    font-size: 1.25rem;
+  }
+  
+  .bg-red-700 {
+    background-color: #c53030;
+  }
+  
+  .hover\\:bg-red-800:hover {
+    background-color: #9b2c2c;
+  }
+  
+  .p-2 {
+    padding: 0.5rem;
+  }
+  
+  .rounded-full {
+    border-radius: 9999px;
+  }
+  
+  .ml-2 {
+    margin-left: 0.5rem;
+  }
+  
+  .transition-colors {
+    transition: background-color 0.3s;
+  }
+  
+  .duration-300 {
+    transition-duration: 0.3s;
+  }
+  
+  /* Button */
+
+  .text-white {
+    color: #ffffff;
+  }
+
+  button{
+    border: none !important;
+  }
+  
+  .bg-red-700 {
+    background-color: #c53030;
+  }
+  
+  .hover\\:bg-red-800:hover {
+    background-color: #9b2c2c;
+  }
+  
+  .p-2 {
+    padding: 0.5rem;
+  }
+  
+  .rounded-full {
+    border-radius: 9999px;
+  }
+  
+  .ml-2 {
+    margin-left: 0.5rem;
+  }
+  
+  .transition-colors {
+    transition: background-color 0.3s;
+  }
+  
+  .duration-300 {
+    transition-duration: 0.3s;
+  }
+  
+
+  
+  

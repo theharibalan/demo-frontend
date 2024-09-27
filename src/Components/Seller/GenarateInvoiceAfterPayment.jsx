@@ -5,7 +5,14 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import stamp from "../../assets/mudra.jpg";
 
-const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, PurchaseOrderURL, productType }) => {
+const GenarateInvoiceAfterPayment = ({
+  poId,
+  totalPrice,
+  quantity,
+  productId,
+  PurchaseOrderURL,
+  productType,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false); // For the button loading state
@@ -29,14 +36,23 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
             setGenerated(true); // Show the View PDF button
             const updatedAt = new Date().toISOString();
 
-            axios.put(`${process.env.REACT_APP_BACKEND_URL}/po/uploadPo`, {
-              poId, updatedAt, purchaseOrderURL, productId
-            })
-              .then(response => {
+            axios
+              .put(`${process.env.REACT_APP_BACKEND_URL}/po/uploadPo`, {
+                poId,
+                updatedAt,
+                purchaseOrderURL,
+                productId,
+              }, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`,
+                  'Content-Type': 'application/json',
+                },
+              })
+              .then((response) => {
                 message.success("Invoice generated successfully!", 8);
                 console.log("PO uploaded successfully:", response.data);
               })
-              .catch(error => {
+              .catch((error) => {
                 message.error("Invoice didn't generated!", 8);
                 console.error("Error uploading PO:", error);
               });
@@ -188,7 +204,10 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
     hiddenElement.style.position = "fixed";
     hiddenElement.style.left = "-9999px";
     console.log(invoiceFormData);
-    const total = (totalAmount * parseInt(invoiceFormData.cgst) / 100) + (totalAmount * parseInt(invoiceFormData.sgst) / 100) + (totalAmount * parseInt(invoiceFormData.igst) / 100)
+    const total =
+      (totalAmount * parseInt(invoiceFormData.cgst)) / 100 +
+      (totalAmount * parseInt(invoiceFormData.sgst)) / 100 +
+      (totalAmount * parseInt(invoiceFormData.igst)) / 100;
     const htmlContent = `
               <div id="printdf" style="background-color: #fff; width: fit-content; min-height: 320mm; margin: 0 auto;padding: 5px 5px 10px">
               <div style="font-family: Arial, sans-serif; font-size: 6px; line-height:1; margin: 0; padding: 0;">
@@ -201,14 +220,17 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
                       <tr>
                           <td rowspan="3" style="border-right: none;border-bottom:none;line-height: 1.5; padding: 2px 0px 2px 2px;">
                               Consignee (Bill From)<br>
-                              ${invoiceFormData.Address.toUpperCase().replace(/\n/g, "<br />")}
+                              ${invoiceFormData.Address.toUpperCase().replace(
+      /\n/g,
+      "<br />"
+    )}
                           </td>
                           <td style="border-right: none;border-bottom:none;padding: 2px;">Credit Note No. 
                           ${invoiceFormData.creditNote}</td>
                           <td style="border-right: none;border-bottom:none;padding: 2px;">Dated: ${getCurrentDate()}</td>
                       </tr>
                       <tr>
-                          <td style="border-right: none;border-bottom:none;font-weight: bold; padding: 2px;">Invoice No.: #10024 <br><br>Date:${getCurrentDate()}</td>
+                          <td style="border-right: none;border-bottom:none;font-weight: bold; padding: 2px;">Invoice No.: #${poId} <br><br>Date:${getCurrentDate()}</td>
                           <td style="border-right: none;border-bottom:none;padding: 2px;">Other Reference</td>
                       </tr>
                       <tr>
@@ -251,7 +273,8 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
                             STATE NAME : TAMIL NADU, CODE : 33
                           </td>
                           <td colspan="2" style="border-right: none;border-bottom:none;padding: 2px;"><strong>Terms & Conditions :</strong><br><p style="margin:0px">1. X-FACTORY TRANSPORT CHARGES ARE ADDITIONAL, THEY ARE NOT INCLUDED IN THE PAYABLE PRICE.</p> ${(
-        invoiceFormData.termsConditions.toUpperCase() || "N/A"
+        invoiceFormData.termsConditions.toUpperCase() ||
+        "N/A"
       ).replace(/\n/g, "<br />")}</td>
                       </tr>
                   </table>
@@ -273,10 +296,8 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
                       <tbody>
                           <tr>
                               <td style="border-right: none;border-bottom:none;padding: 5px;">1</td>
-                              <td style="border-right: none;border-bottom:none;padding: 5px;">${productType
-      } </td>
-                              <td style="border-right: none;border-bottom:none;padding: 5px;">${quantity
-      } TONNES</td>
+                              <td style="border-right: none;border-bottom:none;padding: 5px;">${productType} </td>
+                              <td style="border-right: none;border-bottom:none;padding: 5px;">${quantity} TONNES</td>
                               <td style="border-right: none;border-bottom:none;padding: 5px;">₹ ${formatIndianNumber(
         parseInt(totalPrice) || "0"
       )}.00</td>
@@ -311,11 +332,23 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
                           </tr>
                           <tr>
                               <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">07133100</td>
-                              <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(totalAmount * parseInt(invoiceFormData.cgst) / 100) || "0.00"
+                              <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(
+        (totalAmount *
+          parseInt(invoiceFormData.cgst)) /
+        100
+      ) || "0.00"
       }</td>
-                              <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(totalAmount * parseInt(invoiceFormData.sgst) / 100) || "0.00"
+                              <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(
+        (totalAmount *
+          parseInt(invoiceFormData.sgst)) /
+        100
+      ) || "0.00"
       }</td>
-                              <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(totalAmount * parseInt(invoiceFormData.igst) / 100) || "0.00"
+                              <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(
+        (totalAmount *
+          parseInt(invoiceFormData.igst)) /
+        100
+      ) || "0.00"
       }</td>
                               <td style="border-right: none;border-bottom:none;padding: 5px; text-align: right;">${formatIndianNumber(total) || "0.00"
       }</td>
@@ -327,7 +360,9 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
                       
                       <div style="border:none;padding:6px  3px;">
                           Total Amount (in words):<br><br>
-                          <strong style="margin-top:7px;">INR ${numberToWords(formatIndianNumber(totalAmount + total)).toUpperCase() ||
+                          <strong style="margin-top:7px;">INR ${numberToWords(
+        formatIndianNumber(totalAmount + total)
+      ).toUpperCase() ||
       numberToWords(totalAmount).toUpperCase()
       } ONLY</strong><br><br>
                           <strong>Company’s Bank Details :</strong><br>
@@ -394,7 +429,6 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
       const pdfUrl = response.data.secure_url;
       console.log("PDF uploaded to Cloudinary:", pdfUrl);
       return pdfUrl;
-
     } catch (error) {
       if (error.response) {
         console.error("Error uploading image:", error.response.data);
@@ -408,7 +442,12 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
   return (
     <div>
       {!PurchaseOrderURL && !loading && (
-        <Button type="primary" onClick={() => { setModalVisible(true) }}>
+        <Button
+          type="primary"
+          onClick={() => {
+            setModalVisible(true);
+          }}
+        >
           Enter Invoice Details
         </Button>
       )}
@@ -417,14 +456,21 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
         visible={modalVisible}
         onOk={handleModalOk}
         onCancel={() => setModalVisible(false)}
-        okText={loading ? "Generating..." : generated ? "View PDF" : "Generate & Upload"}
+        okText={
+          loading
+            ? "Generating..."
+            : generated
+              ? "View PDF"
+              : "Generate & Upload"
+        }
         confirmLoading={loading}
       >
         <Form
           form={form}
           className="poModal"
           style={{ height: "60vh", overflowY: "auto" }}
-          layout="vertical" initialValues={{ totalAmountWithTax: totalPrice }}
+          layout="vertical"
+          initialValues={{ totalAmountWithTax: totalPrice }}
         >
           <Form.Item
             name="invoiceTitle"
@@ -494,7 +540,7 @@ const GenarateInvoiceAfterPayment = ({ poId, totalPrice, quantity, productId, Pu
           >
             <Input readOnly />
           </Form.Item>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
             <Form.Item
               name="cgst"
               label="CGST"

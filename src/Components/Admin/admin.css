@@ -29,6 +29,7 @@
 
 .login_form_contianer__input-box {
   margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .login_form_contianer__input {
@@ -45,12 +46,15 @@
   padding: 10px;
   background-color: #4caf50;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 5px;  
+  box-sizing: border-box;
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
   margin-bottom: 15px;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .login_form_contianer__btn:hover {
@@ -365,6 +369,7 @@
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 14px;
 }
 
 .order-tables .yellow-table th {
@@ -469,7 +474,7 @@
   }
 }
 
-@median (max-width: 768px) {
+@media (max-width: 768px) {
   .order-tables .table,
   .table th,
   .table td {
@@ -519,7 +524,7 @@
   z-index: 1000;
   padding: 20px;
 }
-
+.paymentDetailsModal,
 .payment-modal {
   flex-direction: column;
   background: white;
@@ -557,6 +562,7 @@
   position: absolute;
   right: 10px;
   background-color: #f00;
+  cursor: pointer;
   color: #fff;
   box-sizing: border-box;
   padding: 0 5px;
@@ -746,9 +752,9 @@
   width: 60%;
 }
 
-.seller-cont {
+/* .seller-cont {
   width: 80vw;
-}
+} */
 
 .seller-cont .seller-navbar {
   display: none;

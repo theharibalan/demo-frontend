@@ -11,13 +11,20 @@ import {
   Select,
   message,
 } from "antd";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../admin.css";
 import { InfoCircleTwoTone } from "@ant-design/icons";
 const { Option } = Select;
 
 const Listofproducts = () => {
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!localStorage.getItem('admin-role'))
+    {
+      navigate("/admin@b2b/b2bhubindia")
+    }
+  })
   const location = useLocation();
   const seller = location.state?.seller;
 
@@ -131,7 +138,6 @@ const Listofproducts = () => {
   };
   const handleDelete = async (productID) => {
     try {
-      {
         await axios.delete(
           `${process.env.REACT_APP_BACKEND_URL}/seller/deleteProduct/${productID}`,
           {
@@ -147,7 +153,6 @@ const Listofproducts = () => {
         );
         console.log("Product deleted successfully");
         message.success("Prodict Deleted Successfully");
-      }
     } catch (error) {
       console.error("Error deleting product:", error);
       message.error("Error Deleting Product");
@@ -175,114 +180,111 @@ const Listofproducts = () => {
                 className="card"
                 cover={
                   <div style={{ width: "100%", textAlign: "center" }}>
-                    <img
-                      alt={product.productName}
-                      src={product.productImg}
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "250px",
-                        objectFit: "fill",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  </div>
+              <img
+                alt={product.productName}
+                src={product.productImg}
+                style={{
+                  borderRadius: "10px",
+                }}
+              />
+            </div>
                 }
-                actions={[
-                  <Button key="approve" type="primary">
-                    Approve
-                  </Button>,
-                  <Button
-                    key="decline"
-                    danger
-                    onClick={() => showDeleteConfirm(product.productId)} // Show confirmation modal
-                  >
-                    Decline
-                  </Button>,
-                  <Button key="edit" onClick={() => handleEdit(index)}>
-                    Edit
-                  </Button>,
-                ]}
+          actions={[
+            <Button key="approve" type="primary">
+              Approve
+            </Button>,
+            <Button
+              key="decline"
+              danger
+              onClick={() => showDeleteConfirm(product.productId)} // Show confirmation modal
+            >
+              Decline
+            </Button>,
+            <Button key="edit" onClick={() => handleEdit(index)}>
+              Edit
+            </Button>,
+          ]}
               >
-                {isEditing && isEditing.index === index ? (
-                  <Form
-                    layout="vertical"
-                    initialValues={isEditing}
-                    onFinish={handleSave}
-                  >
-                    {/* Only show the Price field */}
-                    <Form.Item label="Price/KG" name="price">
-                      <Input />
-                    </Form.Item>
+          {isEditing && isEditing.index === index ? (
+            <Form
+              layout="vertical"
+              initialValues={isEditing}
+              onFinish={handleSave}
+            >
+              {/* Only show the Price field */}
+              <Form.Item label="Price/KG" name="price">
+                <Input />
+              </Form.Item>
 
-                    <Button type="primary" htmlType="submit">
-                      Save
-                    </Button>
-                  </Form>
-                ) : (
-                  <div
-                    className="each--seller--card"
-                    style={{ textAlign: "left" }}
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+            </Form>
+          ) : (
+            <div
+              className="each--seller--card"
+              style={{ textAlign: "left" }}
                   >
-                    <h3>{product.productName}</h3>
-                    <p>
-                      <strong>Price:</strong> {product.price} per KG
-                    </p>
-                    <p>
-                      <strong>Quantity:</strong> {product.units}
-                    </p>
-                    <p>
-                      <strong>Organic:</strong>{" "}
-                      {product.isOrganic ? "Yes" : "No"}
-                    </p>
-                    <p>
-                      <strong>Moisture:</strong> {product.moisture}
-                    </p>
-                    <p>
-                      <strong>Shelf Life:</strong> {product.shelfLife}
-                    </p>
-                    <p>
-                      <strong>Validity:</strong> {formatDate(product.validity)}
-                    </p>
-                    <p>
-                      <strong>Description:</strong> {product.description}
-                    </p>
-                    <p>
-                      <strong>Packaging:</strong>
-                    </p>
-                    <ul>
-                      {product.packaging &&
-                      Object.keys(product.packaging).length > 0 ? (
-                        Object.keys(product.packaging).map((kg) => (
-                          <li key={kg}>
-                            {kg}: {product.packaging[kg]} bags
-                          </li>
-                        ))
-                      ) : (
-                        <li>No packaging information available</li>
-                      )}
-                    </ul>
-                  </div>
-                )}
-              </Card>
-            </Col>
-          ))}
-          <FloatButton.BackTop style={{ marginBottom: "40px" }} />
+          <h3>{product.productName}</h3>
+          <p>
+            <strong>Price:</strong> {product.price} per KG
+          </p>
+          <p>
+            <strong>Quantity:</strong> {product.units}
+          </p>
+          <p>
+            <strong>Organic:</strong>{" "}
+            {product.isOrganic ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Moisture:</strong> {product.moisture}
+          </p>
+          <p>
+            <strong>Shelf Life:</strong> {product.shelfLife}
+          </p>
+          <p>
+            <strong>Validity:</strong> {formatDate(product.validity)}
+          </p>
+          <p>
+            <strong>Description:</strong> {product.description}
+          </p>
+          <p>
+            <strong>Packaging:</strong>
+          </p>
+          <ul>
+            {product.packaging &&
+              Object.keys(product.packaging).length > 0 ? (
+              Object.keys(product.packaging).map((kg) => (
+                <li key={kg}>
+                  {kg}: {product.packaging[kg]} bags
+                </li>
+              ))
+            ) : (
+              <li>No packaging information available</li>
+            )}
+          </ul>
         </div>
-      </Row>
-      <Modal
-        title={
-          <span>
-            <InfoCircleTwoTone /> Confirm Deletion
-          </span>
-        }
-        visible={isModalVisible}
-        onOk={() => handleDelete(productToDelete)}
-        onCancel={handleCancel}
-        okText="Yes, Delete"
-        cancelText="Cancel"
-      >
-        <p>Are you sure you want to delete this product?</p>
-      </Modal>
+                )}
+      </Card>
+    </Col >
+          ))}
+<FloatButton.BackTop style={{ marginBottom: "40px" }} />
+        </div >
+      </Row >
+  <Modal
+    title={
+      <span>
+        <InfoCircleTwoTone /> Confirm Deletion
+      </span>
+    }
+    visible={isModalVisible}
+    onOk={() => handleDelete(productToDelete)}
+    onCancel={handleCancel}
+    okText="Yes, Delete"
+    cancelText="Cancel"
+  >
+    <p>Are you sure you want to delete this product?</p>
+  </Modal>
     </>
   );
 };

@@ -19,11 +19,18 @@ const UploadCard = styled(Card)(({ theme }) => ({
   position: 'relative',
   transition: 'border-color 0.3s ease',
   '&:hover': {
-    borderColor: '#888',
-  },
+  borderColor: '#888',
+},
 }));
 
 const Form = () => {
+  useEffect(()=>{
+    if(!localStorage.getItem('loggedas'))
+    {
+      navigate('/seller-login',{state: { navigateTo: "seller" }})
+    }
+   
+  })
   const [selectedImage, setSelectedImage] = useState(null);
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
@@ -146,7 +153,7 @@ const Form = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let isValid = true;
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (!token) {
       message.error("User is not authenticated.");
       return;
@@ -232,21 +239,21 @@ const Form = () => {
       }
       return acc;
     }, {});
-  
+
     // Construct the form data object
-  //   const formData = {
-  //     productName: selectedProduct,
-  //     productImg: selectedImage,
-  //     price: pricePerKgOrTon,
-  //     // units: units,
-  //     isOrganic: true,
-  //     moisture: "10%",
-  //     shelfLife: "1 year",
-  //     validity: "2025-12-31",
-  //     description: "A perennial legume that belongs to the Fabaceae family...",
-  //     packaging: packageDict,
-  //     productType: "Green ToorDal"
-  // }
+    //   const formData = {
+    //     productName: selectedProduct,
+    //     productImg: selectedImage,
+    //     price: pricePerKgOrTon,
+    //     // units: units,
+    //     isOrganic: true,
+    //     moisture: "10%",
+    //     shelfLife: "1 year",
+    //     validity: "2025-12-31",
+    //     description: "A perennial legume that belongs to the Fabaceae family...",
+    //     packaging: packageDict,
+    //     productType: "Green ToorDal"
+    // }
     const formData = {
       productName: selectedProduct,
       productImg: selectedImage,
@@ -260,27 +267,28 @@ const Form = () => {
       packaging: packageDict,
       productType: selectedType
     };
-  
+
     try {
       setLoading(true);
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/seller/addProduct`, {
         method: 'POST',
         headers: {
-          Authorization:`Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
       console.log(formData);
-      
+
       if (!response.ok) {
         throw new Error('Something went wrong while sending the data.');
       }
-  
+
       const data = await response.json();
       console.log('Success:', data);
       toast.success('Product added successfully!', {
-        onClose: () => navigate(-1), position: "top-center" });
+        onClose: () => navigate(-1), position: "top-center"
+      });
 
     } catch (error) {
       console.error('Error:', error);
@@ -289,7 +297,7 @@ const Form = () => {
       setLoading(false); // Stop loading when done
     }
   };
-  
+
   const calculateTotalAmount = () => {
     if (pricePerKgOrTon && units && packages.length) {
       const totalQuantity = packages.reduce((acc, pkg) => acc + parseFloat(pkg.quantity || 0), 0);
@@ -297,7 +305,7 @@ const Form = () => {
       const total = pricePerKgOrTon * totalQuantity * 1000;
       setTotalQuantity(totalQuantity);
       // setTotalAmount(total);
-    setTotalAmount(total.toLocaleString('en-IN'));
+      setTotalAmount(total.toLocaleString('en-IN'));
     }
   };
   const handlePackageQuantityChange = (index, event) => {
@@ -306,52 +314,52 @@ const Form = () => {
     setPackages(newPackages);
     calculateTotalAmount(); // Recalculate total amount and quantity on quantity change
   };
-  
+
   const handlePriceChange = (event) => {
     setPricePerKgOrTon(event.target.value);
     calculateTotalAmount(); // Recalculate total amount and quantity on price change
   };
-  
-  useEffect(calculateTotalAmount, [pricePerKgOrTon, packages, units])  
+
+  useEffect(calculateTotalAmount, [pricePerKgOrTon, packages, units])
 
   return (
     <div className="bggram">
       <ToastContainer />
       <div className='formContainer'>
-      <Card 
-        sx={{
-          margin: ' 30px 20px'
-        }}
-      >
-        <CardContent>
-          <Typography variant="h6" color="text.secondary">
-            Your one-stop shop for premium quality pulses. Discover a wide variety of wholesome, nutritious pulses for all your cooking needs.
-          </Typography>
-        </CardContent>
-      </Card>
-
-      <Card 
-        sx={{ 
-          maxWidth: '100%', 
-          margin: '20px auto', 
-          mt: 5, 
-          padding: 2, 
-          '@media (max-width: 360px)': { 
-            maxWidth: '100%', 
-            margin: 'auto', 
-            boxShadow: 'none' 
-          } 
-        }}
-      >
-        <form onSubmit={handleSubmit}>
+        <Card
+          sx={{
+            margin: ' 30px 20px'
+          }}
+        >
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 5 }}>
-              Product Details Form
+            <Typography variant="h6" color="text.secondary">
+              Your one-stop shop for premium quality pulses. Discover a wide variety of wholesome, nutritious pulses for all your cooking needs.
             </Typography>
+          </CardContent>
+        </Card>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 5, alignItems: 'center', gap: 3 }}>
-              <UploadCard
-                sx={{ width: 120, height: 120, textAlign: 'center', position: 'relative' }}
+        <Card
+          sx={{
+            maxWidth: '100%',
+            margin: '20px auto',
+            mt: 5,
+            padding: 2,
+            '@media (max-width: 360px)': {
+              maxWidth: '100%',
+              margin: 'auto',
+              boxShadow: 'none'
+            }
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 5 }}>
+                Product Details Form
+              </Typography>
+
+              <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 5, alignItems: 'center', gap: 3 }}>
+                <UploadCard
+                  sx={{ width: 120, height: 120, textAlign: 'center', position: 'relative' }}
                 onClick={handleCardClick}
               >
                 <input
@@ -388,243 +396,245 @@ const Form = () => {
                           Uploading...
                         </Typography>
                         <Box sx={{ width: 120, textAlign: 'center' }}>
-                          <LinearProgress variant="determinate" value={progress} />
-                        </Box>
-                      </>
-                    ) : (
-                      <Typography variant="body2" color="text.secondary">
-                        Upload Image
-                      </Typography>
+                        <LinearProgress variant="determinate" value={progress} />
+                      </Box>
+                  </>
+                ) : (
+                <Typography variant="body2" color="text.secondary">
+                  Upload Image
+                </Typography>
                     )}
-                  </CardContent>
+            </CardContent>
                 )}
-                {selectedImage && !isUploading && (
-                  <IconButton
-                    sx={{
-                      position: 'absolute',
-                      top: '5px',
-                      right: '5px',
-                      backgroundColor: 'red',
-                      color: 'white',
-                      fontSize: '14px',
-                      padding: '4px',
-                      '&:hover': {
-                        backgroundColor: 'darkred',
-                      },
-                    }}
-                    onClick={handleRemoveImage}
-                  >
-                    <CloseIcon fontSize="5px" />
-                  </IconButton>
-                )}
-              </UploadCard>
-            </Box>
-            <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
-      
-              {/* Product Name Dropdown */}
-              <FormControl fullWidth>
-                <InputLabel id="product-select-label">Select Product</InputLabel>
-                <Select
-                  labelId="product-select-label"
-                  value={selectedProduct}
-                  onChange={handleProductChange}
-                  label="Select Product"
-                >
-                  {Object.keys(productNames).map((product, index) => (
-                    <MenuItem key={index} value={product}>
-                      {product}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* Product Type Dropdown */}
-              <FormControl fullWidth>
-                <InputLabel id="product-type-select-label">Product Type</InputLabel>
-                <Select
-                  labelId="product-type-select-label"
-                  value={selectedType}
-                  onChange={handleTypeChange}
-                  label="Product Type"
-                  
-                >
-                  {selectedProduct &&
-                    productNames[selectedProduct].map((type, index) => (
-                      <MenuItem key={index} value={type}>
-                        {type}
-                      </MenuItem>
-                    ))}
-                    <MenuItem value={'Other'}>Others</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            
-            <Box sx={{ display: 'flex', alignItems: 'center', margin: '20px 0' }}>
-              <TextField
-                label="Pricing"
-                variant="outlined"
-                type="number"
-                sx={{ flex: 1, marginRight: 1 }}
-                value={pricePerKgOrTon}
-                onChange={handlePriceChange}
-                
-              />
-              /
-              <FormControl sx={{ flex: 1, marginLeft: 1 }}>
-                <InputLabel>Units</InputLabel>
-                <Select
-                  value={units}
-                  label="Units"
-                  onChange={handleUnitsChange}                  
-                >
-                  <MenuItem value="kg">1 KG</MenuItem>
-                  <MenuItem value="ton">1 TONNE</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            
-            <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
-              <FormControl fullWidth>
-                <InputLabel>Moisture</InputLabel>
-                <Select
-                  value={moisture}
-                  label="Moisture"
-                  onChange={(event) => setMoisture(event.target.value)}
-                  
-                >
-                  <MenuItem value="Dry">Dry</MenuItem>
-                  <MenuItem value="Wet">Wet</MenuItem>
-                  <MenuItem value="Normal">Normal</MenuItem>
-                  {/* <MenuItem value="40%">40%</MenuItem> */}
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel>Shelf Life</InputLabel>
-                <Select
-                  value={shelfLife}
-                  label="Shelf Life"
-                  onChange={(event) => setShelfLife(event.target.value)}
-                  
-                >
-                  <MenuItem value="1 month">1 month</MenuItem>
-                  <MenuItem value="3 months">3 months</MenuItem>
-                  <MenuItem value="6 months">6 months</MenuItem>
-                  <MenuItem value="1 year">1 year</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            
-            <TextField
-              label="Validity"
-              variant="outlined"
-              type="date"
-              InputLabelProps={{ shrink: true }}
-              fullWidth
-              sx={{ marginBottom: 2 }}
-              value={validity}
-              onChange={(event) => setValidity(event.target.value)}
-              
-            />
-            
-            <TextField
-              label="Description"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={4}
-              name="description" 
-              
-            />
-            
-            <Box sx={{ marginTop: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Packaging
-              </Typography>
-              {packages.map((pkg, index) => (
-                <Box key={index} sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-                  <FormControl sx={{ flex: 1, marginRight: 1 }}>
-                    <InputLabel>Type</InputLabel>
-                    <Select
-                      value={pkg.type}
-                      label="Type"
-                      onChange={(event) => handlePackageTypeChange(index, event)}
-                      
-                    >
-                      <MenuItem value="unpacked">Unpacked</MenuItem>
-                      <MenuItem value="1kg">1kg Packed</MenuItem>
-                      <MenuItem value="5kg">5kg Packed</MenuItem>
-                      <MenuItem value="25kg">25kg Packed</MenuItem>
-                      <MenuItem value="50kg">50kg Packed</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <Typography variant="h6" sx={{ marginX: 1 }}> - </Typography>
-                  <FormControl sx={{ flex: 1 }}>
-                    <TextField
-                      label="Quantity (in Tonnes)"
-                      variant="outlined"
-                      type="number"
-                      sx={{ flex: 1, marginRight: 1 }}
-                      value={pkg.quantity}
-                      onChange={(event) => handlePackageQuantityChange(index, event)}
-                      
-                    />
-                  </FormControl>
-                  <IconButton
-                    sx={{
-                      marginLeft: 2,
-                      padding: '2px',
-                      backgroundColor: 'rgba(255, 0, 0, 0.3)',
-                      color: 'rgba(255, 0, 0, 0.7)',
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                      },
-                    }}
-                    onClick={() => removePackageField(index)}
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                </Box>
-              ))}
+            {selectedImage && !isUploading && (
               <IconButton
                 sx={{
-                  marginTop: 2,
-                  backgroundColor: 'blue',
+                  position: 'absolute',
+                  top: '5px',
+                  right: '5px',
+                  backgroundColor: 'red',
                   color: 'white',
-                  fontSize: '12px',
-                  borderRadius: '5px',
+                  fontSize: '14px',
+                  padding: '4px',
                   '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                    color: 'white'
+                    backgroundColor: 'darkred',
                   },
                 }}
-                onClick={addPackageField}
-                
+                onClick={handleRemoveImage}
               >
-                <AddIcon /> Add Package
+                <CloseIcon fontSize="5px" />
               </IconButton>
-            </Box>
-            {/* Calculated Total */}
-            <Box sx={{ display: 'flex', alignItems: 'end', flexDirection: 'column', marginTop: 3 }}>
-              <Typography sx={{ flex: 1, fontWeight: 'bold', fontSize: '18px' }}>
-                Total Quantity: {totalQuantity} Tonnes
-              </Typography>
-              <Typography sx={{ flex: 1, fontWeight: 'bold', fontSize: '18px' }}>
-                Total Amount: INR {totalAmount}
-              </Typography>
-            </Box>
+            )}
+          </UploadCard>
+        </Box>
+        <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5}}>
-              <Button 
-                type="submit" 
-                variant="contained" 
-                color="primary"
-                sx={{ fontSize: '16px', textTransform: 'capitalize'}}
-                disabled={loading}
+          {/* Product Name Dropdown */}
+          <FormControl fullWidth>
+            <InputLabel id="product-select-label">Select Product</InputLabel>
+            <Select
+              labelId="product-select-label"
+              value={selectedProduct}
+              onChange={handleProductChange}
+              label="Select Product"
+            >
+              {Object.keys(productNames).map((product, index) => (
+                <MenuItem key={index} value={product}>
+                  {product}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {/* Product Type Dropdown */}
+          <FormControl fullWidth>
+            <InputLabel id="product-type-select-label">Product Type</InputLabel>
+            <Select
+              labelId="product-type-select-label"
+              value={selectedType}
+              onChange={handleTypeChange}
+              label="Product Type"
+
+            >
+              {selectedProduct &&
+                productNames[selectedProduct].map((type, index) => (
+                  <MenuItem key={index} value={type}>
+                    {type}
+                  </MenuItem>
+                ))}
+              <MenuItem value={'Other'}>Others</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', margin: '20px 0' }}>
+          <TextField
+            label="Pricing"
+            variant="outlined"
+            type="number"
+            min={0}
+            sx={{ flex: 1, marginRight: 1 }}
+            value={pricePerKgOrTon}
+            onChange={handlePriceChange}
+
+          />
+          /
+          <FormControl sx={{ flex: 1, marginLeft: 1 }}>
+          <InputLabel>Units</InputLabel>
+          <Select
+            value={units}
+            label="Units"
+            onChange={handleUnitsChange}
+          >
+            <MenuItem value="kg">1 KG</MenuItem>
+            <MenuItem value="ton">1 TONNE</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
+      <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
+        <FormControl fullWidth>
+          <InputLabel>Moisture</InputLabel>
+          <Select
+            value={moisture}
+            label="Moisture"
+            onChange={(event) => setMoisture(event.target.value)}
+
+          >
+            <MenuItem value="Dry">Dry</MenuItem>
+            <MenuItem value="Wet">Wet</MenuItem>
+            <MenuItem value="Normal">Normal</MenuItem>
+            {/* <MenuItem value="40%">40%</MenuItem> */}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel>Shelf Life</InputLabel>
+          <Select
+            value={shelfLife}
+            label="Shelf Life"
+            onChange={(event) => setShelfLife(event.target.value)}
+
+          >
+            <MenuItem value="1 month">1 month</MenuItem>
+            <MenuItem value="3 months">3 months</MenuItem>
+            <MenuItem value="6 months">6 months</MenuItem>
+            <MenuItem value="1 year">1 year</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
+      <TextField
+        label="Validity"
+        variant="outlined"
+        type="date"
+        InputLabelProps={{ shrink: true }}
+        fullWidth
+        sx={{ marginBottom: 2 }}
+        value={validity}
+        onChange={(event) => setValidity(event.target.value)}
+
+      />
+
+      <TextField
+        label="Description"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        name="description"
+
+      />
+
+      <Box sx={{ marginTop: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          Packaging
+        </Typography>
+        {packages.map((pkg, index) => (
+          <Box key={index} sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+            <FormControl sx={{ flex: 1, marginRight: 1 }}>
+              <InputLabel>Type</InputLabel>
+              <Select
+                value={pkg.type}
+                label="Type"
+                onChange={(event) => handlePackageTypeChange(index, event)}
+
               >
-                {loading ? <><CircularProgress size={24} sx={{marginRight: '10px'}}/>Submitting...</>: 'Submit'}
-              </Button>
+                <MenuItem value="unpacked">Unpacked</MenuItem>
+                <MenuItem value="1kg">1kg Packed</MenuItem>
+                <MenuItem value="5kg">5kg Packed</MenuItem>
+                <MenuItem value="25kg">25kg Packed</MenuItem>
+                <MenuItem value="50kg">50kg Packed</MenuItem>
+              </Select>
+            </FormControl>
+            <Typography variant="h6" sx={{ marginX: 1 }}> - </Typography>
+            <FormControl sx={{ flex: 1 }}>
+              <TextField
+                label="Quantity (in Tonnes)"
+                variant="outlined"
+                type="number"
+                min={0}
+                sx={{ flex: 1, marginRight: 1 }}
+                value={pkg.quantity}
+                onChange={(event) => handlePackageQuantityChange(index, event)}
+
+              />
+            </FormControl>
+            <IconButton
+              sx={{
+                marginLeft: 2,
+            padding: '2px',
+            backgroundColor: 'rgba(255, 0, 0, 0.3)',
+            color: 'rgba(255, 0, 0, 0.7)',
+            '&:hover': {
+              backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                  },
+                }}
+            onClick={() => removePackageField(index)}
+              >
+            <RemoveIcon />
+          </IconButton>
             </Box>
-            {/* <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5}}>
+          ))}
+      <IconButton
+        sx={{
+          marginTop: 2,
+          backgroundColor: 'blue',
+          color: 'white',
+          fontSize: '12px',
+          borderRadius: '5px',
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 255, 0.5)',
+            color: 'white'
+          },
+        }}
+        onClick={addPackageField}
+
+      >
+        <AddIcon /> Add Package
+      </IconButton>
+    </Box>
+        {/* Calculated Total */ }
+        <Box sx={{ display: 'flex', alignItems: 'end', flexDirection: 'column', marginTop: 3 }}>
+          <Typography sx={{ flex: 1, fontWeight: 'bold', fontSize: '18px' }}>
+            Total Quantity: {totalQuantity} Tonnes
+          </Typography>
+          <Typography sx={{ flex: 1, fontWeight: 'bold', fontSize: '18px' }}>
+            Total Amount: INR {totalAmount}
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ fontSize: '16px', textTransform: 'capitalize' }}
+            disabled={loading}
+          >
+            {loading ? <><CircularProgress size={24} sx={{ marginRight: '10px' }} />Submitting...</> : 'Submit'}
+          </Button>
+        </Box>
+  {/* <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5}}>
               <Button 
                 type="submit" 
                 variant="contained" 
@@ -634,11 +644,11 @@ const Form = () => {
                 Submit
               </Button>
             </Box> */}
-          </CardContent>
-        </form>
-      </Card>
-    </div>
-    </div>
+      </CardContent >
+    </form >
+      </Card >
+    </div >
+    </div >
   );
 };
 

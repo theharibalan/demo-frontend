@@ -1,99 +1,97 @@
 .mandate .terms-container {
-
-    width: 100%;
-    max-width: 800px;
-    padding: 40px;
-    background-color: #ffffff;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.7;
-    margin: 0 auto;
-    text-align: justify;
+  width: 100%;
+  max-width: 800px;
+  padding: 40px;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.7;
+  margin: 0 auto;
+  text-align: justify;
 }
-.mandate .terms{
-    color:red;
-    font-weight: 300;
+.mandate .terms {
+  color: red;
+  font-weight: 300;
 }
 .mandate .terms-container h2 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 30px;
-    font-size: 25px;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 25px;
 }
 .mandate .section-heading {
-    color: #34495e;
-    text-transform: uppercase;
-    margin-bottom: 40px;
-    border-bottom: 2px solid #d5391d;
-    padding-bottom: 10px;
-   
+  color: #34495e;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #d5391d;
+  padding-bottom: 10px;
 }
 
 .mandate .terms-container p {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 400;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .mandate .terms-container p strong {
-    color: #2c3e50;
+  color: #2c3e50;
 }
 
 .mandate .terms-container .highlight {
-    font-weight: bold;
-    font-weight: 500;
-    color: #16a085;
+  font-weight: bold;
+  font-weight: 500;
+  color: #16a085;
 }
 
 .mandate .terms-container .highlight-mandatory {
-    font-weight: bold;
-    color: #e74c3c;
+  font-weight: bold;
+  color: #e74c3c;
 }
 
 .mandate .terms-container .important-note {
-    background-color: #fff3cd;
-    border-left: 5px solid #ffb84d;
-    padding: 10px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #856404;
+  background-color: #fff3cd;
+  border-left: 5px solid #ffb84d;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #856404;
 }
 
 .mandate .terms-container .important-note strong {
-    color: #856404;
+  color: #856404;
 }
 .mandate .terms-container .important-note-buyer {
-    background-color: #fff3cd;
-    border-left: 5px solid #ffb84d;
-    padding: 15px;
-    font-size: 16px;
-    color: #856404;
+  background-color: #fff3cd;
+  border-left: 5px solid #ffb84d;
+  padding: 15px;
+  font-size: 16px;
+  color: #856404;
 }
 
 .mandate .terms-container .important-note-buyer strong {
-    color: #856404;
+  color: #856404;
 }
 
 @media screen and (max-width: 768px) {
-    .mandate .terms-container {
-        width: 95%;
-        padding: 20px;
-    }
+  .mandate .terms-container {
+    width: 95%;
+    padding: 20px;
+  }
 
-    .mandate .terms-container p {
-        font-size: 14px;
-    }
+  .mandate .terms-container p {
+    font-size: 14px;
+  }
 
-    .mandate .terms-container h2 {
-        font-size: 24px;
-    }
+  .mandate .terms-container h2 {
+    font-size: 24px;
+  }
 
-    .mandate .terms-container .important-note {
-        font-size: 14px;
-    }
+  .mandate .terms-container .important-note {
+    font-size: 14px;
+  }
 
-    .mandate .section-heading {
-        font-size: 26px;
-    }
+  .mandate .section-heading {
+    font-size: 26px;
+  }
 }

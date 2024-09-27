@@ -285,7 +285,7 @@ const Reg = () => {
           </div>
         </>
       </Modal>
-    </div>
+    </div >
   );
 };
 

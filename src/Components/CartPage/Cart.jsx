@@ -52,9 +52,9 @@ const styles = {
     padding: '20px',
     margin: '20px',
     maxWidth: '300px',
-    textAlign: 'center',
-    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-  },
+    text- align: 'center',
+  boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+},
   image: {
     width: '100%',
     height: 'auto',

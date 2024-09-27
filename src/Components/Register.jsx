@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "antd/dist/reset.css";
 import NavBar from "./PageComponents/Navbar";
-import GoogleTag from "./GoogleTag";
 
 const Register = () => {
   const [form] = Form.useForm();
@@ -35,8 +34,7 @@ const Register = () => {
       <div
         style={{ backgroundColor:"#f4f4f4", width: "400px", padding: "20px", border: "1px solid grey" }}
       >
-        <GoogleTag/>
-        <h2>Register Here</h2>
+        <h2>Register</h2>
         <Form form={form} layout="vertical" onFinish={handleRegister}>
           <Form.Item
             name="name"

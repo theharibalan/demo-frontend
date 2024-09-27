@@ -1,8 +1,13 @@
+.title {
+  font-size: 25px;
+  margin: 20px 0;
+}
+
 .all--seller--products {
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
-    minmax(250px, 1fr)
+    minmax(300px, 1fr)
   ); /* Adjusts to screen size */
   justify-content: center;
   row-gap: 3rem;
@@ -46,6 +51,7 @@
 
 .all--seller--products > .ant-col > .ant-card > .ant-card-body {
   padding: 2.4rem 0.5rem !important;
+  align-self: flex-start;
 }
 
 .all--seller--products > .ant-col {
@@ -56,7 +62,6 @@
 .all--seller--products > .ant-col > .ant-card {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .all--seller--products > .ant-col > .ant-card > .ant-card-cover {
@@ -70,4 +75,8 @@
 .all--seller--products > .ant-col > .ant-card > .ant-card-cover > div > img {
   width: 100%;
   height: 100%;
+  background-size: contain;
+}
+.all--seller--products > .ant-col > .ant-card > .ant-card-actions {
+  gap: 2rem;
 }

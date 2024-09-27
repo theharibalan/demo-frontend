@@ -414,7 +414,7 @@
   }
 
   .remainder-container p {
-    text-align: center;
+    text-Align: center;
     margin: 10px 0;
     display: block;
     width: 100vw;
@@ -424,7 +424,7 @@
   .remainder-container input {
     padding: 2px;
     width: 75%;
-    text-align: center;
+    text-Align: center;
     font-size: 12px;
   }
 } */

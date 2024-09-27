@@ -60,13 +60,13 @@ const Invoice = () => {
 			try {
 				const response = await axios.post(
 					'${process.env.REACT_APP_BACKEND_URL}/b2b/getorders',
-					[],
-					{
-						headers: {
-							Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1YmJ1ZHVzYW5hcHVkaUBnbWFpbC5jb20iLCJpYXQiOjE3MjU4NzU5ODMsImV4cCI6MTcyNzE3MTk4M30.-RKGJlGEWPtqVxD45sSbhAhAG_7TEbFQXGYgZSwlWDg',
-							'Content-Type': 'application/json',
-						},
+					[], {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('token')}`,
+						'Content-Type': 'application/json',
 					}
+				}
+
 				);
 
 				const data = response.data[2];
@@ -439,10 +439,12 @@ State Name: ${(formData.state || "").toUpperCase()}, Code: 33`
 							<th style={{ padding: "5px", textAlign: "left" }}>Product Name</th>
 							<th style={{ padding: "5px", textAlign: "left" }}>Quantity</th>
 							<th style={{ padding: "5px", textAlign: "left" }}>Rate</th>
-							<th style={{ padding: "5px", textAlign: "left" }}>Per</th>
-							<th style={{ padding: "5px", textAlign: "right" }}>Amount</th>
-						</tr>
-					</thead>
+							<th style={{
+								padding: "5px", textAlign: "left"
+							}}> Per</th >
+							<th style={{ padding: "5px", textAlign: "right" }}> Amount</th >
+						</tr >
+					</thead >
 					<tbody>
 						<tr>
 							<td style={{ padding: "5px" }}>1</td>
@@ -455,9 +457,9 @@ State Name: ${(formData.state || "").toUpperCase()}, Code: 33`
 						<tr>
 							<td colSpan={5} style={{ padding: "5px" }}>Total (GST Exempted)</td>
 							<td style={{ padding: "5px", textAlign: "right" }}>{formatIndianNumber(parseInt(formData.TotalAmount))}</td>
-						</tr>
-					</tbody>
-				</table>
+						</tr >
+					</tbody >
+				</table >
 				<div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
 					<strong>GST Exempted</strong>
 					<table border={"1px"} style={{ width: "100%", borderCollapse: "collapse", marginBottom: "10px", fontSize: "14px" }}>
@@ -471,19 +473,19 @@ State Name: ${(formData.state || "").toUpperCase()}, Code: 33`
 							</th>
 							<th style={{ padding: "5px", textAlign: "right" }}>
 								IGST @ <Input name="IGST" style={{ textAlign: "center", width: "50px" }} placeholder="IGST" value={formData.IGST} onChange={(e) => setFormData({ ...formData, IGST: e.target.value })} />%
-							</th>
-							<th style={{ padding: "5px", textAlign: "right" }}>Total Tax Amount</th>
-							<th style={{ padding: "5px", textAlign: "right" }}>Total Amount with Tax</th>
-						</tr>
+							</th >
+							<th style={{ padding: "5px", textAlign: "right" }}> Total Tax Amount</th >
+							<th style={{ padding: "5px", textAlign: "right" }}> Total Amount with Tax</th >
+						</tr >
 						<tr>
 							<td style={{ padding: "5px" }}><Input name="HSN/SAC" placeholder="Enter HSN/SAC" value={formData.HSN} onChange={(e) => setFormData({ ...formData, HSN: e.target.value })} /></td>
 							<td style={{ padding: "5px", textAlign: "right" }}>{formatIndianNumber(parseInt(formData.cgstAmount))}</td>
-							<td style={{ padding: "5px", textAlign: "right" }}>{formatIndianNumber(parseInt(formData.sgstAmount))}</td>
-							<td style={{ padding: "5px", textAlign: "right" }}>{formatIndianNumber(parseInt(formData.igstAmount))}</td>
-							<td style={{ padding: "5px", textAlign: "right" }}>{formatIndianNumber(parseInt(formData.totalGST))}</td>
-							<td style={{ padding: "5px", textAlign: "right" }}>{formatIndianNumber(parseInt(formData.totalAmountWithGst))}</td>
-						</tr>
-					</table>
+							<td style={{ padding: "5px", textAlign: "right" }}> {formatIndianNumber(parseInt(formData.sgstAmount))}</td >
+							<td style={{ padding: "5px", textAlign: "right" }}> {formatIndianNumber(parseInt(formData.igstAmount))}</td >
+							<td style={{ padding: "5px", textAlign: "right" }}> {formatIndianNumber(parseInt(formData.totalGST))}</td >
+							<td style={{ padding: "5px", textAlign: "right" }}> {formatIndianNumber(parseInt(formData.totalAmountWithGst))}</td >
+						</tr >
+					</table >
 
 					<div style={{ border: "none", padding: "6px 3px" }}>
 						Total Amount (in words): <br /> <br />
@@ -494,7 +496,7 @@ State Name: ${(formData.state || "").toUpperCase()}, Code: 33`
 						IFSC Code.: PUNB0394000 <br />
 						Branch : Tiruvanmiyur,CHENNAI <br />
 					</div>
-				</div>
+				</div >
 				<div style={{ border: "none", padding: "3px", marginBottom: "4px" }}>
 					<strong>Declaration:</strong> <br /> <br />
 					We declare that this invoice shows the actual price of the goods described and that all particulars are true
@@ -515,9 +517,9 @@ State Name: ${(formData.state || "").toUpperCase()}, Code: 33`
 					Authorised Signature
 				</div>
 
-			</div>
+			</div >
 			<Button style={{ marginBottom: "50px", borderRadius: "10px" }} type='primary' onClick={downloadInvoice} loading={loading}>{loading ? "Generating..." : "Generate Invoice"}</Button>
-		</div>
+		</div >
 	);
 };
 

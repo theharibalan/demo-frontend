@@ -9,12 +9,12 @@ import {
   Modal,
   message,
   Table,
-  Spin,Empty 
+  Spin, Empty
 } from "antd";
 import "./Listofproducts.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {InfoCircleTwoTone } from '@ant-design/icons';
+import { InfoCircleTwoTone } from '@ant-design/icons';
 import Invoice from "./Invoice";
 import GenarateInvoiceAfterPayment from "./GenarateInvoiceAfterPayment";
 
@@ -31,7 +31,7 @@ const Listofproducts = () => {
   const [noData, setNoData] = useState(false);
 
   const handleFetch = async () => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
 
     if (!token) {
       message.error("User is not authenticated.");
@@ -41,12 +41,14 @@ const Listofproducts = () => {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/seller/getProductsBySellerId`,
         { customerId: localStorage.getItem("customerId") },
-        {headers: {
-          Authorization:` Bearer ${token}`,
-          "Content-Type": "application/json",
-        }}
+        {
+          headers: {
+            Authorization: ` Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        }
       );
-      
+
 
       if (res.data.length === 0) {
         setNoData(true); // If no data, set noData to true
@@ -63,49 +65,18 @@ const Listofproducts = () => {
   };
 
   useEffect(() => {
-      handleFetch();
+    handleFetch();
   }, []);
-  
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const token = localStorage.getItem("token"); // Get token from localStorage
 
-      if (!token) {
-        message.error("User is not authenticated.");
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/seller/getProducts`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              customerId: localStorage.getItem("customerId"),
-            }),
-          }
-        );
-
-        const data = await response.json();
-      } catch (error) {
-        message.error("An error occurred while fetching products.");
-      }
-    };
-    fetchProducts();
-  }, []);
 
   const formatDate = (isoDate) => {
     if (!isoDate) return ''; // Handle case where date is null or undefined
-  
+
     const date = new Date(isoDate);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const day = String(date.getDate()).padStart(2, '0');
-  
+
     return `${year}-${month}-${day}`;
   };
   const handleDelete = async (productID) => {
@@ -116,12 +87,12 @@ const Listofproducts = () => {
       return;
     }
     try {
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/seller/deleteProduct/${productID}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        })
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/seller/deleteProduct/${productID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
       setData((prevData) => prevData.filter((product) => product.productId !== productID));
       message.success("Product Deleted Successfully")
       handleCancel()
@@ -152,8 +123,8 @@ const Listofproducts = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(response.data);
-        
+        // console.log(response.data);
+
         const fetchedOrders = response.data.map((order, index) => ({
           poId: order.poId,
           date: order.createdAt,
@@ -164,8 +135,8 @@ const Listofproducts = () => {
           productType: order.productType,
           key: index.toString(),
         }));
-        console.log(fetchedOrders);
-        
+        // console.log(fetchedOrders);
+
         setPurchaseOrders(fetchedOrders);
       } catch (error) {
         message.error("Failed to fetch purchase orders");
@@ -199,9 +170,9 @@ const Listofproducts = () => {
       render: (_, record) => {
         const isLoading = loadingOrder[record.poId] || false;
         // console.log(record);
-        
+
         return (
-          <GenarateInvoiceAfterPayment loading={isLoading} poId={record.poId} totalPrice={record.totalPrice} quantity={record.quantity} PurchaseOrderURL={record.PurchaseOrderURL} productId={record.productId} productType={record.productType}/>
+          <GenarateInvoiceAfterPayment loading={isLoading} poId={record.poId} totalPrice={record.totalPrice} quantity={record.quantity} PurchaseOrderURL={record.PurchaseOrderURL} productId={record.productId} productType={record.productType} />
         );
       },
     },
@@ -214,120 +185,120 @@ const Listofproducts = () => {
       </button>
       <Tabs defaultActiveKey="1" className="custom-tabs">
         <items tab="My Products" key="1">
-        <Row gutter={16}>
-        
-        {loading ? (
-        <div style={{ textAlign: "center", marginTop: "50px", width: "100vw" }}>
-          <Spin size="large" tip="Loading products..." />
-        </div>
-      ) : noData ? (
-        <div style={{ textAlign: "center", marginTop: "50px", width: "100vw" }}>
-          <Empty description="No products available" />
-        </div>
-      ) : (
-        <Row gutter={[16, 16]} style={{ width: "100%", marginTop: "20px" }}>
-          {data.map((product, index) => (
-            <Col xs={24} sm={12} md={8} lg={6} key={index}>
-            <Card className="card" style={{textAlign: 'center', borderRadius: "20px"}}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center", // Centering items horizontally
-                  justifyContent: "space-between", // Spacing between content and button
-                  height: "100%"
-                }}
-              >
-                {/* Image Section */}
-                <div style={{ width: "100%", textAlign: "center" }}>
-                  <img
-                    alt={product.productName}
-                    src={product.productImg}
-                    style={{
-                      width: "100%",
-                      height: "180px",
-                      backgroundPosition: "center",
-                      objectFit: "fill",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </div>
-          
-                {/* Content Section */}
-                <div style={{ textAlign: "left", width: "100%", padding: "10px" }}>
-                  <h3 style={{ textAlign: "center" }}>{product.productName}</h3>
-                  <p>
-                    <strong>Price:</strong> {product.price} per KG
-                  </p>
-                  <p>
-                    <strong>Quantity:</strong> {product.units}
-                  </p>
-                  <p>
-                    <strong>Organic:</strong> {product.isOrganic ? "Yes" : "No"}
-                  </p>
-                  <p>
-                    <strong>Moisture:</strong> {product.moisture}
-                  </p>
-                  <p>
-                    <strong>Shelf Life:</strong> {product.shelfLife}
-                  </p>
-                  <p>
-                    <strong>Validity:</strong> {formatDate(product.validity)}
-                  </p>
-                  <p>
-                    <strong>Description:</strong> {product.description}
-                  </p>
-                  <p>
-                    <strong>Packaging:</strong>
-                  </p>
-                  <ul style={{ listStyleType: "disc", paddingLeft: "20px", marginBottom: "16px" }}>
-                    {Object.keys(product.packaging).map((kg) => (
-                      <li key={kg} style={{ marginBottom: "4px" }}>
-                        {kg}: {product.packaging[kg]} TONNES
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-          
-                {/* Delete Button Section */}
-                <Button
-                  key="decline"
-                  danger
-                  onClick={() => showDeleteConfirm(product.productId)}
-                  disabled={loadingDelete[product.productId]}
-                  style={{ marginTop: "10px" }} // Add margin to separate the button from the content
-                >
-                  {loadingDelete[product.productId] ? (
-                    <>
-                      <Spin /> Deleting...
-                    </>
-                  ) : (
-                    "Delete"
-                  )}
-                </Button>
+          <Row gutter={16}>
+
+            {loading ? (
+              <div style={{ textAlign: "center", marginTop: "50px", width: "100vw" }}>
+                <Spin size="large" />
               </div>
-            </Card>
-          </Col>
-          
-          
-          
-          ))}
-        </Row>
-      )}
-        <FloatButton.BackTop style={{ marginBottom: "40px" }} />
-      </Row>
-      <Modal
-        title={<span><InfoCircleTwoTone /> Confirm Deletion</span>}
-        open={isModalVisible}
-        onOk={()=>handleDelete(productToDelete)}
-        onCancel={handleCancel}
-        okText="Yes, Delete"
-        cancelText="Cancel"
-      >
-        <p>Are you sure you want to delete this product?</p>
-      </Modal>
-        </items>
-        <items tab="Purchase Orders" key="2" style={{padding: "0 30px"}}>
+            ) : noData ? (
+              <div style={{ textAlign: "center", marginTop: "50px", width: "100vw" }}>
+                <Empty description="No products available" />
+              </div>
+            ) : (
+              <Row gutter={[16, 16]} style={{ width: "100%", marginTop: "20px" }}>
+                {data.map((product, index) => {
+                  const matchingOrder = purchaseOrders.find(order => order.productId === product.productId);
+                  const price = matchingOrder ? matchingOrder.totalPrice : product.price;
+                  return (
+                <Col xs={24} sm={12} md={8} lg={6} key={index}>
+                  <Card className="card" style={{ textAlign: 'center', borderRadius: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center", // Centering items horizontally
+                        justifyContent: "space-between", // Spacing between content and button
+                        height: "100%"
+                      }}
+                    >
+                      {/* Image Section */}
+                      <div style={{ width: "100%", textAlign: "center" }}>
+                        <img
+                          alt={product.productName}
+                          src={product.productImg}
+                          style={{
+                            width: "100%",
+                            height: "180px",
+                            backgroundPosition: "center",
+                            objectFit: "fill",
+                            borderRadius: "10px",
+                          }}
+                        />
+                      </div>
+
+                      {/* Content Section */}
+                      <div style={{ textAlign: "left", width: "100%", padding: "10px" }}>
+                        <h3 style={{ textAlign: "center" }}>{product.productName}</h3>
+                        <p>
+                          <strong>Price:</strong> {price} per KG
+                        </p>
+                        <p>
+                          <strong>Quantity:</strong> {product.units}
+                        </p>
+                        <p>
+                          <strong>Organic:</strong> {product.isOrganic ? "Yes" : "No"}
+                        </p>
+                        <p>
+                          <strong>Moisture:</strong> {product.moisture}
+                        </p>
+                        <p>
+                          <strong>Shelf Life:</strong> {product.shelfLife}
+                        </p>
+                        <p>
+                          <strong>Validity:</strong> {formatDate(product.validity)}
+                        </p>
+                        <p>
+                          <strong>Description:</strong> {product.description}
+                        </p>
+                        <p>
+                          <strong>Packaging:</strong>
+                        </p>
+                        <ul style={{ listStyleType: "disc", paddingLeft: "20px", marginBottom: "16px" }}>
+                          {Object.keys(product.packaging).map((kg) => (
+                            <li key={kg} style={{ marginBottom: "4px" }}>
+                              {kg}: {product.packaging[kg]} TONNES
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Delete Button Section */}
+                      <Button
+                        key="decline"
+                        danger
+                        onClick={() => showDeleteConfirm(product.productId)}
+                        disabled={loadingDelete[product.productId]}
+                        style={{ marginTop: "10px" }} // Add margin to separate the button from the content
+                      >
+                        {loadingDelete[product.productId] ? (
+                          <>
+                            <Spin /> Deleting...
+                          </>
+                        ) : (
+                          "Delete"
+                        )}
+                      </Button>
+                    </div>
+                  </Card >
+                </Col >
+                )})}
+              </Row >
+            )}
+            <FloatButton.BackTop style={{ marginBottom: "40px" }} />
+          </Row >
+          <Modal
+            title={<span><InfoCircleTwoTone /> Confirm Deletion</span>}
+            open={isModalVisible}
+            onOk={() => handleDelete(productToDelete)}
+            onCancel={handleCancel}
+            okText="Yes, Delete"
+            cancelText="Cancel"
+          >
+            <p>Are you sure you want to delete this product?</p>
+          </Modal>
+        </items >
+        <items tab="Purchase Orders" key="2" style={{ padding: "0 30px" }}>
           <Table
             dataSource={purchaseOrders}
             columns={purchaseOrderColumns}
@@ -344,7 +315,7 @@ const Listofproducts = () => {
             </div>
           )}
         </items>
-      </Tabs>
+      </Tabs >
     </>
   );
 };

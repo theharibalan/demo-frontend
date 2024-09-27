@@ -1,51 +1,50 @@
 /* Remove unwanted margins and paddings */
 .ant-row {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  
-  .ant-col {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  
-  .card {
-    border-radius: 10px;
-    margin: 20px 0px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card img {
-    margin-top: 20px;
-    /* padding: 20px 0 0 0; */
-    border-radius: 10px;
-
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
-  
+
+.ant-col {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.card {
+  border-radius: 10px;
+  margin: 20px 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  margin-top: 20px;
+  /* padding: 20px 0 0 0; */
+  border-radius: 10px;
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 600px) {
   .card h3 {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
   }
-  
+
   .card p {
-    font-size: 14px;
+    font-size: 12px;
   }
-  
-  @media only screen and (max-width: 600px) {
-    .card h3 {
-      font-size: 16px;
-    }
-  
-    .card p {
-      font-size: 12px;
-    }
-  
-    .ant-col {
-      padding-left: 4px;
-      padding-right: 4px;
-    }
+
+  .ant-col {
+    padding-left: 4px;
+    padding-right: 4px;
   }
-  
+}
+
 .addProd {
   border: 0;
   border-radius: 8px;
@@ -91,11 +90,13 @@
   table-layout: auto;
 }
 
-.Invoice-page table td, th {
+.Invoice-page table td,
+th {
   word-wrap: break-word; /* Prevent content from overflowing cells */
 }
 
-.Invoice-page textarea, input {
+.Invoice-page textarea,
+input {
   width: 100%; /* Make inputs responsive */
   max-width: 100%;
 }
@@ -124,7 +125,8 @@
     font-size: 14px; /* Reduce font size for mobile */
   }
 
-  .Invoice-page table td, th {
+  .Invoice-page table td,
+  th {
     padding: 5px; /* Reduce padding for smaller screens */
   }
 

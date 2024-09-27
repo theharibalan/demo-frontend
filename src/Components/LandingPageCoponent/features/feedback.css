@@ -11,7 +11,8 @@
   text-align: left;
 }
 
-.section-table th, .section-table td {
+.section-table th,
+.section-table td {
   padding: 17px;
   border: 1px solid #ddd;
 }
@@ -85,15 +86,15 @@
 }
 
 .submit button:disabled {
-  background-color: #ccc; 
+  background-color: #ccc;
   cursor: not-allowed;
 }
-.rating-container p{
-    font-size: 2em;
+.rating-container p {
+  font-size: 2em;
 }
 
-@media only screen and (max-width:480px){
-    .feedback-textarea {
-        width: 70%;
-    }
+@media only screen and (max-width: 480px) {
+  .feedback-textarea {
+    width: 70%;
+  }
 }

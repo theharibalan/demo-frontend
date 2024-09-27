@@ -259,45 +259,45 @@ const PaymentPage = () => {
               Our Business Associate will reach out to you shortly via mail
             </h4>
             <div style={{ marginLeft: "150px" }}>
-              <p style={{ color: "gray", textAlign: "left" }}>
-                For Queries contact us :<br />
-                Mobile : +91 8723745747 <br /> Email : support@b2bhubindia.com
-              </p>
-            </div>
-            <button
-              onClick={() => navigate("/products")}
-              className="modal-button"
-            >
-              Explore Products
-            </button>
-          </div>
-        </>
-      </Modal>
-      <div className="payment-page">
-        {/* <div className="payment--details--summary"> */}
-        <div className="payment-summary">
-          <h3>order summary</h3>
-          <div className="summary-item">
-            <span>Total Price:</span>{" "}
-            <span>₹ {formatIndianNumber(purchaseData.totalPrice)}</span>
-          </div>
-
-          <div className="summary-item">
-            <span>GST (Exempted):</span>{" "}
-            <span>₹ {formatIndianNumber(purchaseData.gstAmount)}</span>
-          </div>
-          <span className="line---divider"></span>
-          <div className="summary-item total-amount">
-            <span>Total Amount:</span>{" "}
-            <span className="res-total">
-              ₹ {formatIndianNumber(purchaseData.totalPrice)}
-            </span>
-          </div>
+            <p style={{ color: "gray", textAlign: "left" }}>
+            For Queries contact us :<br />
+            Mobile : +91 8723745747 <br /> Email : support@b2bhubindia.com
+          </p>
         </div>
+        <button
+          onClick={() => navigate("/products")}
+          className="modal-button"
+        >
+          Explore Products
+        </button>
+    </div>
+        </>
+      </Modal >
+  <div className="payment-page">
+    {/* <div className="payment--details--summary"> */}
+    <div className="payment-summary">
+      <h3>order summary</h3>
+      <div className="summary-item">
+        <span>Total Price:</span>{" "}
+        <span>₹ {formatIndianNumber(purchaseData.totalPrice)}</span>
+      </div>
 
-        <div className="payment-details">
-          {/* <div className="qr-code"> */}
-          {/* <QRCode
+      <div className="summary-item">
+        <span>GST (Exempted):</span>{" "}
+        <span>₹ {formatIndianNumber(purchaseData.gstAmount)}</span>
+      </div>
+      <span className="line---divider"></span>
+      <div className="summary-item total-amount">
+        <span>Total Amount:</span>{" "}
+        <span className="res-total">
+          ₹ {formatIndianNumber(purchaseData.totalPrice)}
+        </span>
+      </div>
+    </div>
+
+    <div className="payment-details">
+      {/* <div className="qr-code"> */}
+      {/* <QRCode
               value={generateUpiUrl()}
               size={200}
               level="H"
@@ -308,214 +308,214 @@ const PaymentPage = () => {
                 excavate: true,
               }}
             /> */}
-          {/* <p htmlFor="qrcode">Scan the QR to Proceed with the Payment</p> */}
-          {/* </div> */}
-          <div className="bank-details">
-            <h3>Bank Details</h3>
-            <p>
-              <strong>Account Number:</strong> 3940002100057010
-            </p>
-            <p>
-              <strong>IFSC Code:</strong> PUNB03940000
-            </p>
-            <p>
-              <strong>Bank Name:</strong> Punjab National Bank
-            </p>
-          </div>
-        </div>
-        {/* </div> */}
-
-        {/* <div className="container"> */}
-        <div className="buyer-info">
-          <h3>Buyer Information</h3>
-          <div className="form-section">
-            <label>
-              <span style={{ color: "red" }}>*</span>Company Name:
-            </label>
-            <input
-              readOnly
-              type="text"
-              name="name"
-              value={buyerInfo.name}
-              onChange={(e) => handleInputChange(e, "buyerInfo")}
-            />
-            {errors.name && <p className="error-message">{errors.name}</p>}
-          </div>
-          <div className="form-section">
-            <label>
-              <span style={{ color: "red" }}>*</span>Phone No:
-            </label>
-            <input
-              readOnly
-              type="text"
-              name="mobile"
-              value={buyerInfo.mobile}
-              onChange={(e) => handleInputChange(e, "buyerInfo")}
-            />
-            {errors.mobile && <p className="error-message">{errors.mobile}</p>}
-          </div>
-          <div className="form-section">
-            <label>
-              <span style={{ color: "red" }}>*</span>Email:
-            </label>
-            <input
-              readOnly
-              type="email"
-              name="email"
-              value={buyerInfo.email}
-              onChange={(e) => handleInputChange(e, "buyerInfo")}
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
-          </div>
-          <div className="form-section">
-            <label>
-              <span style={{ color: "red" }}>*</span>GST No:
-            </label>
-            <input
-              readOnly
-              type="text"
-              name="GST_No"
-              value={buyerInfo.GST_No}
-              onChange={(e) => handleInputChange(e, "buyerInfo")}
-            />
-            {errors.GST_No && <p className="error-message">{errors.GST_No}</p>}
-          </div>
-        </div>
-
-        <div className="delivery-address">
-          <h3>Delivery Address</h3>
-          <div className="row">
-            <div className="form-section">
-              <label>
-                <span style={{ color: "red" }}>*</span>Address Line 1:
-              </label>
-              <input
-                type="text"
-                placeholder="Door No. , Street Address , c/o"
-                name="doorNo"
-                value={deliveryAddress.doorNo}
-                onChange={(e) => handleInputChange(e, "deliveryAddress")}
-              />
-              {errors.doorNo && (
-                <p className="error-message">{errors.doorNo}</p>
-              )}
-            </div>
-            <div className="form-section">
-              <label>
-                <span style={{ color: "red" }}>*</span>Address Line 2:
-              </label>
-              <input
-                placeholder="Apartment, Building , floor"
-                type="text"
-                name="streetName"
-                value={deliveryAddress.streetName}
-                onChange={(e) => handleInputChange(e, "deliveryAddress")}
-              />
-              {errors.streetName && (
-                <p className="error-message">{errors.streetName}</p>
-              )}
-            </div>
-          </div>
-          <div className="row">
-            <div className="form-section">
-              <label>
-                <span style={{ color: "red" }}>*</span>City:
-              </label>
-              <select
-                id="select-fieldforCity"
-                name="city"
-                value={deliveryAddress.city}
-                onChange={(e) => handleInputChange(e, "deliveryAddress")}
-              >
-                <option value="">Select City</option>
-                <option value="Chennai">Chennai</option>
-                <option value="Bangalore">Bangalore</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Mumbai">Mumbai</option>
-              </select>
-              {errors.city && <p className="error-message">{errors.city}</p>}
-            </div>
-            <div className="form-section">
-              <label>
-                <span style={{ color: "red" }}>*</span>State:
-              </label>
-              <input
-                type="text"
-                name="state"
-                value={deliveryAddress.state}
-                readOnly
-              />
-            </div>
-          </div>
-          <div className="zip-landmark-row">
-            <div className="form-section">
-              <label>
-                <span style={{ color: "red" }}>*</span>Landmark:
-              </label>
-              <input
-                type="text"
-                name="landmark"
-                value={deliveryAddress.landmark}
-                onChange={(e) => handleInputChange(e, "deliveryAddress")}
-              />
-            </div>
-            <div className="form-section">
-              <label>
-                <span style={{ color: "red" }}>*</span>PIN Code:
-              </label>
-              <input
-                type="text"
-                name="zip"
-                value={deliveryAddress.zip}
-                onChange={(e) => handleInputChange(e, "deliveryAddress")}
-              />
-              {errors.zip && <p className="error-message">{errors.zip}</p>}
-            </div>
-          </div>
-          <div className="sample--request--radioBtn">
-            <input
-              type="checkbox"
-              name="sample_request"
-              value={sample_request}
-              onChange={(e) => handleSampleRequest(e)}
-            />
-            <label>Request for Sample (optional)</label>
-          </div>
-        </div>
-        {/* </div> */}
-
-        {/* <div className="payment--info--remainder"> */}
-        <div className="info-container">
-          <h3>Delivery Details</h3>
-          <p>Delivery Takes 3 to 7 business days from the date of Payment</p>
-          <b>
-            <p style={{ color: "red" }}>**Conditions Apply</p>
-          </b>
-          <b>
-            <p>The samples can be sent to the provided address on request</p>
-          </b>
-          {!isOrderSuccesful ? (
-            <button disabled={disableBtn} onClick={handleConfirmOrder}>
-              {proceedPaymentText}
-            </button>
-          ) : (
-            <h3 style={{ color: "green" }}>Thank you for the Business</h3>
-          )}
-        </div>
-        <div className="remainder-container">
-          <p>Send the Payment Transaction Details to this Mail </p>
-          <div className="remainder-email">
-            <input
-              type="email"
-              readOnly
-              placeholder="support@b2bhubindia.com"
-            />
-          </div>
-        </div>
-        {/* </div> */}
+      {/* <p htmlFor="qrcode">Scan the QR to Proceed with the Payment</p> */}
+      {/* </div> */}
+      <div className="bank-details">
+        <h3>Bank Details</h3>
+        <p>
+          <strong>Account Number:</strong> 3940002100057010
+        </p>
+        <p>
+          <strong>IFSC Code:</strong> PUNB03940000
+        </p>
+        <p>
+          <strong>Bank Name:</strong> Punjab National Bank
+        </p>
       </div>
     </div>
+    {/* </div> */}
+
+    {/* <div className="container"> */}
+    <div className="buyer-info">
+      <h3>Buyer Information</h3>
+      <div className="form-section">
+        <label>
+          <span style={{ color: "red" }}>*</span>Company Name:
+        </label>
+        <input
+          readOnly
+          type="text"
+          name="name"
+          value={buyerInfo.name}
+          onChange={(e) => handleInputChange(e, "buyerInfo")}
+        />
+        {errors.name && <p className="error-message">{errors.name}</p>}
+      </div>
+      <div className="form-section">
+        <label>
+          <span style={{ color: "red" }}>*</span>Phone No:
+        </label>
+        <input
+          readOnly
+          type="text"
+          name="mobile"
+          value={buyerInfo.mobile}
+          onChange={(e) => handleInputChange(e, "buyerInfo")}
+        />
+        {errors.mobile && <p className="error-message">{errors.mobile}</p>}
+      </div>
+      <div className="form-section">
+        <label>
+          <span style={{ color: "red" }}>*</span>Email:
+        </label>
+        <input
+          readOnly
+          type="email"
+          name="email"
+          value={buyerInfo.email}
+          onChange={(e) => handleInputChange(e, "buyerInfo")}
+        />
+        {errors.email && <p className="error-message">{errors.email}</p>}
+      </div>
+      <div className="form-section">
+        <label>
+          <span style={{ color: "red" }}>*</span>GST No:
+        </label>
+        <input
+          readOnly
+          type="text"
+          name="GST_No"
+          value={buyerInfo.GST_No}
+          onChange={(e) => handleInputChange(e, "buyerInfo")}
+        />
+        {errors.GST_No && <p className="error-message">{errors.GST_No}</p>}
+      </div>
+    </div>
+
+    <div className="delivery-address">
+      <h3>Delivery Address</h3>
+      <div className="row">
+        <div className="form-section">
+          <label>
+            <span style={{ color: "red" }}>*</span>Address Line 1:
+          </label>
+          <input
+            type="text"
+            placeholder="Door No. , Street Address , c/o"
+            name="doorNo"
+            value={deliveryAddress.doorNo}
+            onChange={(e) => handleInputChange(e, "deliveryAddress")}
+          />
+          {errors.doorNo && (
+            <p className="error-message">{errors.doorNo}</p>
+          )}
+        </div>
+        <div className="form-section">
+          <label>
+            <span style={{ color: "red" }}>*</span>Address Line 2:
+          </label>
+          <input
+            placeholder="Apartment, Building , floor"
+            type="text"
+            name="streetName"
+            value={deliveryAddress.streetName}
+            onChange={(e) => handleInputChange(e, "deliveryAddress")}
+          />
+          {errors.streetName && (
+            <p className="error-message">{errors.streetName}</p>
+          )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="form-section">
+          <label>
+            <span style={{ color: "red" }}>*</span>City:
+          </label>
+          <select
+            id="select-fieldforCity"
+            name="city"
+            value={deliveryAddress.city}
+            onChange={(e) => handleInputChange(e, "deliveryAddress")}
+          >
+            <option value="">Select City</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+          </select>
+          {errors.city && <p className="error-message">{errors.city}</p>}
+        </div>
+        <div className="form-section">
+          <label>
+            <span style={{ color: "red" }}>*</span>State:
+          </label>
+          <input
+            type="text"
+            name="state"
+            value={deliveryAddress.state}
+            readOnly
+          />
+        </div>
+      </div>
+      <div className="zip-landmark-row">
+        <div className="form-section">
+          <label>
+            <span style={{ color: "red" }}>*</span>Landmark:
+          </label>
+          <input
+            type="text"
+            name="landmark"
+            value={deliveryAddress.landmark}
+            onChange={(e) => handleInputChange(e, "deliveryAddress")}
+          />
+        </div>
+        <div className="form-section">
+          <label>
+            <span style={{ color: "red" }}>*</span>PIN Code:
+          </label>
+          <input
+            type="text"
+            name="zip"
+            value={deliveryAddress.zip}
+            onChange={(e) => handleInputChange(e, "deliveryAddress")}
+          />
+          {errors.zip && <p className="error-message">{errors.zip}</p>}
+        </div>
+      </div>
+      <div className="sample--request--radioBtn">
+        <input
+          type="checkbox"
+          name="sample_request"
+          value={sample_request}
+          onChange={(e) => handleSampleRequest(e)}
+        />
+        <label>Request for Sample (optional)</label>
+      </div>
+    </div>
+    {/* </div> */}
+
+    {/* <div className="payment--info--remainder"> */}
+    <div className="info-container">
+      <h3>Delivery Details</h3>
+      <p>Delivery Takes 3 to 7 business days from the date of Payment</p>
+      <b>
+        <p style={{ color: "red" }}>**Conditions Apply</p>
+      </b>
+      <b>
+        <p>The samples can be sent to the provided address on request</p>
+      </b>
+      {!isOrderSuccesful ? (
+        <button disabled={disableBtn} onClick={handleConfirmOrder}>
+          {proceedPaymentText}
+        </button>
+      ) : (
+        <h3 style={{ color: "green" }}>Thank you for the Business</h3>
+      )}
+    </div>
+    <div className="remainder-container">
+      <p>Send the Payment Transaction Details to this Mail </p>
+      <div className="remainder-email">
+        <input
+          type="email"
+          readOnly
+          placeholder="support@b2bhubindia.com"
+        />
+      </div>
+    </div>
+    {/* </div> */}
+  </div>
+    </div >
   );
 };
 

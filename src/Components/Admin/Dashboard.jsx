@@ -60,15 +60,17 @@ const Dashboard = () => {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
-  const [poBtnText,setPoBtnText] = useState("Download Purchase Order")
+  const [poBtnText, setPoBtnText] = useState("Download Purchase Order")
   const [data, setData] = useState([]);
   useEffect(() => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/b2b/getorders`;
     axios
-      .post(url,{},{headers: {
-        Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
-        "Content-Type": "application/json",
-      }})
+      .post(url, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
+          "Content-Type": "application/json",
+        }
+      })
       .then((res) => {
         setData(res.data);
       })
@@ -128,12 +130,13 @@ const Dashboard = () => {
   const handleDownloadPo = async () => {
     setPoBtnText("Generating ....")
     const url = await generatePo(data);
-    setPoBtnText("Download Purchase Order") 
+    setPoBtnText("Download Purchase Order")
   };
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center"
+}}>
       <h1>Order and Payment Dashboard</h1>
       <select
         value={selectedYear}
@@ -267,7 +270,7 @@ const Dashboard = () => {
       <OrdersCharts
         style={{ marginTop: "4vh", marginBottom: "50vh", width: "90vw" }}
       />
-    </div>
+    </div >
   );
 };
 

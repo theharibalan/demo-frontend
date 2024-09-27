@@ -2,112 +2,140 @@ import axios from "axios";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { FaSortAmountDown } from "react-icons/fa";
-import pnb from "../assets/PNB.png"
-import logo from "../assets/b2blogo.png"
-const GenerateReceipt = async (order,pid) => {
-
-  const name = order.companyname
-  const email = order.email
-  const amount = parseInt(order.total_amount)
-  const mobile = order.phone_no
-  const gst_no = order.gst_no
+import pnb from "../assets/PNB.png";
+import logo from "../assets/b2blogo.png";
+const GenerateReceipt = async (order, pid) => {
+  const name = order.companyname;
+  const email = order.email;
+  const amount = parseInt(order.total_amount);
+  const mobile = order.phone_no;
+  const gst_no = order.gst_no;
 
   function formatIndianNumber(number) {
     const numStr = number.toString();
     let lastThreeDigits = numStr.slice(-3);
     const otherDigits = numStr.slice(0, -3);
-  
-    if (otherDigits !== '') {
-      lastThreeDigits = ',' + lastThreeDigits;
+
+    if (otherDigits !== "") {
+      lastThreeDigits = "," + lastThreeDigits;
     }
-  
-    const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits;
+
+    const formattedNumber =
+      otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThreeDigits;
     return formattedNumber;
   }
 
-
-function getCurrentDate() {
+  function getCurrentDate() {
     const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
-    const hours = String(today.getHours()).padStart(2, '0');
-    const minutes = String(today.getMinutes()).padStart(2, '0');
-    
+    const hours = String(today.getHours()).padStart(2, "0");
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+
     return `${day}/${month}/${year} ${hours}:${minutes}`;
-}
-function getCurrentDateWithoutTime() {
+  }
+  function getCurrentDateWithoutTime() {
     const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
     return `${day}-${month}-${year}`;
-}
+  }
 
-function numberToWords(amount) {
-    var words = '';
+  function numberToWords(amount) {
+    var words = "";
     var fraction = Math.round((amount - Math.floor(amount)) * 100);
-    var units = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
-    var teens = ['Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-    var tens = ['Ten', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-    var thousands = ['', 'Thousand', 'Lakh', 'Crore'];
+    var units = [
+      "Zero",
+      "One",
+      "Two",
+      "Three",
+      "Four",
+      "Five",
+      "Six",
+      "Seven",
+      "Eight",
+      "Nine",
+    ];
+    var teens = [
+      "Eleven",
+      "Twelve",
+      "Thirteen",
+      "Fourteen",
+      "Fifteen",
+      "Sixteen",
+      "Seventeen",
+      "Eighteen",
+      "Nineteen",
+    ];
+    var tens = [
+      "Ten",
+      "Twenty",
+      "Thirty",
+      "Forty",
+      "Fifty",
+      "Sixty",
+      "Seventy",
+      "Eighty",
+      "Ninety",
+    ];
+    var thousands = ["", "Thousand", "Lakh", "Crore"];
 
     function convertChunk(num) {
-        var str = '';
-        var hundred = Math.floor(num / 100);
-        num = num % 100;
-        if (hundred > 0) {
-            str += units[hundred] + ' Hundred ';
+      var str = "";
+      var hundred = Math.floor(num / 100);
+      num = num % 100;
+      if (hundred > 0) {
+        str += units[hundred] + " Hundred ";
+      }
+      if (num > 10 && num < 20) {
+        str += teens[num - 11] + " ";
+      } else {
+        var ten = Math.floor(num / 10);
+        num = num % 10;
+        if (ten > 0) {
+          str += tens[ten - 1] + " ";
         }
-        if (num > 10 && num < 20) {
-            str += teens[num - 11] + ' ';
-        } else {
-            var ten = Math.floor(num / 10);
-            num = num % 10;
-            if (ten > 0) {
-                str += tens[ten - 1] + ' ';
-            }
-            if (num > 0) {
-                str += units[num] + ' ';
-            }
+        if (num > 0) {
+          str += units[num] + " ";
         }
-        return str.trim();
+      }
+      return str.trim();
     }
 
     if (amount === 0) {
-        words = 'Zero';
+      words = "Zero";
     } else {
-        var crore = Math.floor(amount / 10000000);
-        var lakh = Math.floor((amount % 10000000) / 100000);
-        var thousand = Math.floor((amount % 100000) / 1000);
-        var hundred = Math.floor((amount % 1000) / 100);
-        var remainder = amount % 100;
+      var crore = Math.floor(amount / 10000000);
+      var lakh = Math.floor((amount % 10000000) / 100000);
+      var thousand = Math.floor((amount % 100000) / 1000);
+      var hundred = Math.floor((amount % 1000) / 100);
+      var remainder = amount % 100;
 
-        if (crore > 0) {
-            words += convertChunk(crore) + ' Crore ';
-        }
-        if (lakh > 0) {
-            words += convertChunk(lakh) + ' Lakh ';
-        }
-        if (thousand > 0) {
-            words += convertChunk(thousand) + ' Thousand ';
-        }
-        if (hundred > 0) {
-            words += convertChunk(hundred) + ' Hundred ';
-        }
-        if (remainder > 0) {
-            words += convertChunk(remainder);
-        }
+      if (crore > 0) {
+        words += convertChunk(crore) + " Crore ";
+      }
+      if (lakh > 0) {
+        words += convertChunk(lakh) + " Lakh ";
+      }
+      if (thousand > 0) {
+        words += convertChunk(thousand) + " Thousand ";
+      }
+      if (hundred > 0) {
+        words += convertChunk(hundred) + " Hundred ";
+      }
+      if (remainder > 0) {
+        words += convertChunk(remainder);
+      }
     }
 
     if (fraction > 0) {
-        words += ' and ' + fraction + '/100';
+      words += " and " + fraction + "/100";
     }
 
     return words.trim();
-}
-
- 
+  }
 
   const htmlContent = `
     <div id="printdf" style="background-color: #f5f5f5; width: fit-content; min-height: 297mm; margin-left: auto; margin-right: auto;">
@@ -135,9 +163,13 @@ function numberToWords(amount) {
                 <div style="font-size: 11px;margin-right:10px">
                     <p style="margin: 0;"><strong>Entity Name :</strong> ${name}</p>
                     <p style="margin: 0;"><strong>Entity GST NO. :</strong> ${gst_no}</p>
-                    <p style="margin: 0;"><strong>Actual Amount :</strong>	₹ ${formatIndianNumber(amount)}</p>
+                    <p style="margin: 0;"><strong>Actual Amount :</strong>	₹ ${formatIndianNumber(
+    amount
+  )}</p>
                     <p style="margin: 0;"><strong>GST Amount :</strong> ₹ 0</p>
-                    <p style="margin: 0;"><strong>Amount :</strong>	₹ ${formatIndianNumber(amount)}</p>
+                    <p style="margin: 0;"><strong>Amount :</strong>	₹ ${formatIndianNumber(
+    amount
+  )}</p>
                     <p style="margin: 0;"><strong>Payment Approved Date :</strong> ${getCurrentDateWithoutTime()}</p>
                 </div>
                 <div style="font-size: 11px;">
@@ -147,7 +179,9 @@ function numberToWords(amount) {
                   <div style="font-size: 11px;">
                     <p style="margin: 0;"><strong>GST @ 18% :</strong> NO</p>
                     <p style="margin: 0;"><strong>Remarks :</strong> Master agreement E signing fees</p>
-                    <p style="margin: 0;"><strong>Amount (incl. service charges) :</strong> ₹ ${formatIndianNumber(amount)}</p>
+                    <p style="margin: 0;"><strong>Amount (incl. service charges) :</strong> ₹ ${formatIndianNumber(
+    amount
+  )}</p>
                 </div>
               </div>
             </div>
@@ -181,57 +215,55 @@ function numberToWords(amount) {
     </div>
   `;
 
-  const hiddenElement = document.createElement('div');
-  hiddenElement.style.position = 'fixed';
-  hiddenElement.style.left = '-9999px';
+  const hiddenElement = document.createElement("div");
+  hiddenElement.style.position = "fixed";
+  hiddenElement.style.left = "-9999px";
   hiddenElement.innerHTML = htmlContent;
   document.body.appendChild(hiddenElement);
 
   const element = document.getElementById("printdf");
 
-    const canvas = await html2canvas(element, { scale: 2});
-    const imgData = canvas.toDataURL("image/png");
-  
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4",
-      compress: true,
-    });
+  const canvas = await html2canvas(element, { scale: 2 });
+  const imgData = canvas.toDataURL("image/png");
 
-    const imgWidth = pdf.internal.pageSize.getWidth();
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight, undefined, "FAST");
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: "a4",
+    compress: true,
+  });
 
-    const pdfBlob = pdf.output("blob");
- 
-    const formData = new FormData();
-    formData.append("file", pdfBlob, "invoice");
-    formData.append("upload_preset", "payslips");
-   
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dtgnotkh7/auto/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      ); 
-      console.log(response.data.secure_url);
-      return response.data.secure_url;
-    } catch (error) {
-      if (error.response) {
-        console.error("Error uploading image:", error.response.data);
-      } else {
-        console.error("Error:", error.message);
+  const imgWidth = pdf.internal.pageSize.getWidth();
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight, undefined, "FAST");
+
+  const pdfBlob = pdf.output("blob");
+
+  const formData = new FormData();
+  formData.append("file", pdfBlob, "invoice");
+  formData.append("upload_preset", "payslips");
+
+  try {
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/dtgnotkh7/auto/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }
+    );
+    console.log(response.data.secure_url);
+    return response.data.secure_url;
+  } catch (error) {
+    if (error.response) {
+      console.error("Error uploading image:", error.response.data);
+    } else {
+      console.error("Error:", error.message);
     }
+  }
 
-    document.body.removeChild(hiddenElement);
-  
+  document.body.removeChild(hiddenElement);
 };
 
-
-export default GenerateReceipt
+export default GenerateReceipt;

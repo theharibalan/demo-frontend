@@ -10,16 +10,15 @@ import Dividerr from "./../ui/Dividerrr";
 function Advantages() {
   return (
     <div className="advantages--section">
-        <Dividerr />
-        <p>B2B Hub advantages</p>
-        <h3>The platform built for future-proofing</h3>
-        <p className="advDesp">
-          B2B Hub is the enterprise commerce operating system for immediate
-          success and future resilience. Designed to optimise resources and
-          maximise returns, it keeps you ahead of shifting customer needs,
-          amplifies your development team's impact, and helps you outsmart
-          competitors instead of outspending them.
-        </p>
+      <Dividerr />
+      <p>B2B Hub advantages</p>
+      <h3>The platform built for future-proofing</h3>
+      <p className="advDesp">
+        B2B Hub is the platform for seamless trading between buyers and sellers
+        in the dal industry. Built to streamline transactions and boost
+        profitability, it adapts to market trends, enhances efficiency for both
+        parties, and ensures you stay competitive without overspending.
+      </p>
 
       <div className="advantages--cards">
         <div>
@@ -28,8 +27,8 @@ function Advantages() {
           </div>
           <h4>Accelerate innovation </h4>
           <p>
-            Innovate and launch at lightning speed, on the only platform that’s
-            consistently first-to-market with new capabilities.
+            Scale your business rapidly with B2B hub platform that always delivers
+            the latest features, helping you stay ahead of the competition.
           </p>
         </div>
         <div>
@@ -38,8 +37,9 @@ function Advantages() {
           </div>
           <h4>Increase revenue </h4>
           <p>
-            Increase top-line revenue with the best-converting checkout on the
-            planet, and reach more customers on more channels.
+            Drive higher revenue with an optimized checkout experience with B2B hub and
+            expand your reach by connecting with more customers across multiple
+            channels.
           </p>
         </div>
         <div>
@@ -48,8 +48,8 @@ function Advantages() {
           </div>
           <h4>Optimise performance </h4>
           <p>
-            Handle the highest volumes possible and always stay connected with
-            99.95% uptime and less than 50ms response time.
+            Manage high transaction volumes seamlessly with B2B hub, staying connected with
+            99.95% uptime and lightning-fast response times under 50ms.
           </p>
         </div>
         <div>
@@ -58,8 +58,9 @@ function Advantages() {
           </div>
           <h4>Build with flexibility</h4>
           <p>
-            Evolve your commerce architecture and transform your customer
-            experiences with a flexible commerce operating system.
+            {" "}
+            B2B hub evolves your business processes and enhance customer interactions
+            with a flexible platform designed for dynamic market needs.{" "}
           </p>
         </div>
         <div>
@@ -68,8 +69,9 @@ function Advantages() {
           </div>
           <h4>Lower cost of ownership </h4>
           <p>
-            2B Hub TCO is on average 33% better than its competitors’, making it
-            the industry’s most cost- effective commerce platform.
+            B2B Hub offers a total cost of ownership (TCO) that's on average 33%
+            lower than competitors, making it the most cost-effective solution
+            in the industry.
           </p>
         </div>
         <div>
@@ -78,8 +80,9 @@ function Advantages() {
           </div>
           <h4>Improve development impact </h4>
           <p>
-            Use your developer resources to drive growth with unique builds,
-            while relying on B2B Hub for your infrastructure and platform.
+            {" "}
+            Leverage your development team to create customized solutions while
+            B2B Hub handles your infrastructure and platform needs.{" "}
           </p>
         </div>
       </div>

@@ -63,10 +63,12 @@ const Dashboard = () => {
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/b2b/getorders`;
     axios
-      .post(url,{},{headers: {
-        Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
-        "Content-Type": "application/json",
-      }})
+      .post(url, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin-token")}`,
+          "Content-Type": "application/json",
+        }
+      })
       .then((res) => {
         setData(res.data);
       })
@@ -134,40 +136,40 @@ const Dashboard = () => {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </div>
-      <div className='admin-table-ctn' style={{ width: '50%', overflow: 'auto', maxHeight: '300px' }}>
-        <table className='admin-table' style={{ width: '100%', borderCollapse: 'collapse', whiteSpace: 'nowrap' }}>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Company Name</th>
-              <th>Payment Status</th>
-              <th>Date of Order Placed</th>
-              <th>Contact Details</th>
-            </tr>
-          </thead>
-          <tbody>
-    {filteredData.length > 0 ? (
-      filteredData.map(order => (
-        <tr key={order.orderId}>
-          <td>{order.orderId}</td>
-          <td>{order.companyname}</td>
-          <td>{order.payment_status ? 'Paid' : 'Pending'}</td>
-          <td>{order.date_of_order}</td>
-          <td>{order.phone_no} | {order.email}</td>
+      </div >
+  <div className='admin-table-ctn' style={{ width: '50%', overflow: 'auto', maxHeight: '300px' }}>
+    <table className='admin-table' style={{ width: '100%', borderCollapse: 'collapse', whiteSpace: 'nowrap' }}>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Company Name</th>
+          <th>Payment Status</th>
+          <th>Date of Order Placed</th>
+          <th>Contact Details</th>
         </tr>
-      ))
-    ) : (
-      <tr>
-        <td colSpan="5">
-            <Empty description="No Records" />
-        </td>
-      </tr>
-    )}
-  </tbody>
-        </table>
-      </div>
-    </div>
+      </thead>
+      <tbody>
+        {filteredData.length > 0 ? (
+          filteredData.map(order => (
+            <tr key={order.orderId}>
+              <td>{order.orderId}</td>
+              <td>{order.companyname}</td>
+              <td>{order.payment_status ? 'Paid' : 'Pending'}</td>
+              <td>{order.date_of_order}</td>
+              <td>{order.phone_no} | {order.email}</td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="5">
+              <Empty description="No Records" />
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+    </div >
   );
 };
 

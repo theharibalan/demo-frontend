@@ -2,11 +2,11 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const TermsAndConditions = () => {
-    const location = useLocation()
-    const purchaseData = location.purchaseData
+  const location = useLocation()
+  const purchaseData = location.purchaseData
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Terms and Conditions</h1>
+      <h1 style={{ text-align: 'center', marginBottom: '20px' }}>Terms and Conditions</h1>
       
       <section style={{ marginBottom: '20px' }}>
         <h2 style={{ fontSize: '1.5em', marginBottom: '10px' }}>1. Introduction</h2>
@@ -64,12 +64,13 @@ const TermsAndConditions = () => {
         </p>
       </section>
 
-      <div style={{ textAlign: 'center', marginTop: '30px' }}>
-        <p>
-          By purchasing our digital products, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
-        </p>
-      </div>
-    </div>
+      <div style={{ text-align: 'center', marginTop: '30px'
+}}>
+  <p>
+    By purchasing our digital products, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
+  </p>
+      </div >
+    </div >
   );
 };
 

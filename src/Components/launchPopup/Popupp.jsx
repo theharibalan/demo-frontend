@@ -82,34 +82,31 @@ function Popupp({ onLocationChange, onLanguageChange, setSelectedLocation }) {
                   ))}
                 </select>
                 {error && (
-                  <div
-                    className="error-message"
-                    style={{ "margin-left": "20px" }}
-                  >
-                    {error}
-                  </div>
-                )}
+                  <div className="error-message" style={{ marginLeft: "20px" }}>
+                {error}
               </div>
-              <div>
-                <label htmlFor="name">Select Your Language</label>
-                <div className="nav-item">
-                  <div className="google-translate">
-                    <div className="" id="google_element"></div>
-                  </div>
+                )}
+            </div>
+            <div>
+              <label htmlFor="name">Select Your Language</label>
+              <div className="nav-item">
+                <div className="google-translate">
+                  <div className="" id="google_element"></div>
                 </div>
               </div>
-              <button onClick={() => setpop(false)} className="ctn-btn">
-                continue
-              </button>
-              {/* <div>
+            </div>
+            <button onClick={() => setpop(false)} className="ctn-btn">
+              continue
+            </button>
+            {/* <div>
                 <button>Login</button>
                 <button>New register</button>
               </div> */}
-            </div>
+          </div>
           </div>
         )}
-      </>
-      {/* // )} */}
+    </>
+      {/* // )} */ }
     </>
   );
 }

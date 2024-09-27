@@ -10,8 +10,8 @@
   margin-bottom: 9.6rem;
 }
 
-.timer1, 
-.timer{
+.timer1,
+.timer {
   display: none !important;
 }
 
@@ -246,7 +246,7 @@
 .product-image-container span {
   letter-spacing: 1px;
 }
-@media (max-width: 2000px ) {
+@media (max-width: 2000px) {
   /* .badge-platinum{
     position: relative;
     top: -100px;

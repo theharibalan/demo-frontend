@@ -1,183 +1,185 @@
 .slider {
-    width: 80%;
-    overflow: hidden;
-    position: relative;
-    margin: 40px auto 20px;
+  width: 80%;
+  overflow: hidden;
+  position: relative;
+  margin: 40px auto 20px;
 }
 
 .slides {
-    display: flex;
-    width: 100%;
-    animation: slide-animation 16s infinite;
+  display: flex;
+  width: 100%;
+  animation: slide-animation 16s infinite;
 }
 
 .slide {
-    position: relative;
-    width: calc(100% - 20px);
-    overflow: hidden;
-    flex-shrink: 0;
-    display: flex;
-    align-items: flex-end;
-    border-radius: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    margin: 10px;
-    height: 400px;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: calc(100% - 20px);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 10px;
+  height: 400px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
 }
 .blurBg {
-    position: absolute;
-    left: -80px;
-    backdrop-filter: blur(10px);
-    background-color: #ffffff68;
-    width: 450px;
-    height: 1000px;
-    transform: rotate(150deg);
-    box-shadow: 0 5px 10px grey;
+  position: absolute;
+  left: -80px;
+  backdrop-filter: blur(10px);
+  background-color: #ffffff68;
+  width: 450px;
+  height: 1000px;
+  transform: rotate(150deg);
+  box-shadow: 0 5px 10px grey;
 }
 .content {
-    position: relative;
-    text-align: left;
-    position: absolute;
-    left: 0;
-    padding: 30px;
-    box-sizing: border-box;
+  position: relative;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  padding: 30px;
+  box-sizing: border-box;
 }
 .offerCont {
-    position: relative;
-    text-align: center;
-    margin-left: -20px;
-    /* transform: rotate(330deg); */
-    animation: scale-in 1s infinite;
+  position: relative;
+  text-align: center;
+  margin-left: -20px;
+  /* transform: rotate(330deg); */
+  animation: scale-in 1s infinite;
 }
 
 @keyframes scale-in {
-    0% {
-        transform: scale(0.75);
-    }
-    50% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(0.75);
-    }
+  0% {
+    transform: scale(0.75);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.75);
+  }
 }
 
 .offerTimer {
-    position: absolute;
-    color: white;
-    font-size: 20px;
-    top: 20px;
-    left: 30px;
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  top: 20px;
+  left: 30px;
 }
 .content h2 {
-    font-size: 28px;
-    margin: 15px 0;
+  font-size: 28px;
+  margin: 15px 0;
 }
 
 .content .deal {
-    font-size: 22px;
-    font-weight: bold;
-    color: #e74c3c;
-    margin: 10px 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 10px 0;
 }
 
 .content .timer {
-    font-size: 20px;
-    color: #333;
-    margin: 5px 0;
+  font-size: 20px;
+  color: #333;
+  margin: 5px 0;
 }
 
 .content button {
-    padding: 12px 24px;
-    font-size: 18px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
+  padding: 12px 24px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .content button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .image-container {
-    width: 35%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .image-container img {
-    max-width: 100%;
-    border-radius: 10px;
+  max-width: 100%;
+  border-radius: 10px;
 }
 
 @keyframes slide-animation {
-    0%, 25% {
-        transform: translateX(0);
-    }
-    30%, 55% {
-        transform: translateX(-100%);
-    }
-    60%, 85% {
-        transform: translateX(-200%);
-    }
-    90%, 100% {
-        transform: translateX(-300%);
-    }
+  0%,
+  25% {
+    transform: translateX(0);
+  }
+  30%,
+  55% {
+    transform: translateX(-100%);
+  }
+  60%,
+  85% {
+    transform: translateX(-200%);
+  }
+  90%,
+  100% {
+    transform: translateX(-300%);
+  }
 }
 
 .explore-more-button {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .explore-more-button button {
-    padding: 12px 24px;
-    font-size: 20px;
-    color: #fff;
-    background-color: #28a745;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 12px 24px;
+  font-size: 20px;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .explore-more-button button:hover {
-    background-color: #218838;
+  background-color: #218838;
 }
 
+@media only screen and (max-width: 480px) {
+  .slider {
+    width: 100vw;
+    height: fit-content;
+  }
+  .slide {
+    width: 100vw;
+    height: 30vh;
+    margin: 0;
+    padding: 0;
+  }
 
-@media only screen and (max-width:480px){
-    .slider{
-        width: 100vw;
-        height: fit-content;
-    }
-    .slide{
-        width: 100vw;
-        height: 30vh;
-        margin: 0;padding: 0;
-    }
-
-.offerCont{
-    
+  .offerCont {
     position: relative;
     top: 60px;
     left: 200%;
-}
-.offerTag{
-    
+  }
+  .offerTag {
     width: 100px;
     height: 50px;
-}
-.offerTimer{
+  }
+  .offerTimer {
     font-size: 10px;
-}
+  }
 }

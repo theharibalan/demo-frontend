@@ -6,12 +6,14 @@ import { toast, ToastContainer, useToast } from "react-toastify";
 import NavBar from "../PageComponents/Navbar";
 import { store } from "../../App";
 import { BsFillCartCheckFill } from "react-icons/bs";
+import { Spin, Empty } from "antd";
 
 const Orders = () => {
   const [orderDetails, setOrderDetails] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [isFetching ,setIsFetching] = useState(true)
+  const [isFetching, setIsFetching] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const [modeOfPayment, setModeOfPayment] = useState();
   const [errormsg, setErrorMsg] = useState(false);
@@ -22,7 +24,6 @@ const Orders = () => {
     accountId: "",
     amount: "",
   });
-  const [noOfOrders, setNoOfOrders] = useContext(store);
 
   const formatIndianNumber = (num) => {
     const numStr = num.toString();
@@ -38,25 +39,32 @@ const Orders = () => {
     }
   };
   const fetchOrders = () => {
-    setIsFetching(true)
-    
-    const url = `${
-      process.env.REACT_APP_BACKEND_URL
-    }/sales/viewOrders`;
-    
+    setIsFetching(true);
+
+    const url = `${process.env.REACT_APP_BACKEND_URL}/sales/viewOrders`;
+
     axios
-      .post(url,{},{headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      }})
+      .post(
+        url,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         setOrderDetails(res.data.reverse());
-        setNoOfOrders(res.data.length);
-        console.log("data ochesindhey...",res.data)
-
+        console.log("data ochesindhey...", res.data);
       })
       .catch((err) => {
-        console.log(err)});
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+        setIsFetching(false); // Ensure to stop the spinner when request is done
+      });
   };
 
   useEffect(() => {
@@ -96,10 +104,12 @@ const Orders = () => {
     // const url = `https://b2b-backend-uvpc.onrender.com/user/addTransaction/${selectedOrder.order_id}`;
     const url = `${process.env.REACT_APP_BACKEND_URL}/b2b/addTransaction/${selectedOrder.orderId}`;
     axios
-      .post(url, paymentDetails, {headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      }})
+      .post(url, paymentDetails, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         fetchOrders();
         toast.success("Payment Details Added Successfully", {
@@ -133,17 +143,11 @@ const Orders = () => {
         </div>
       ) : (
         <>
-              <h1 style={{textAlign:"left",margin:"1em 0 0.3em 1em"}}><BsFillCartCheckFill />Orders</h1>
-
-        {noOfOrders>0?(
-          <>
-          {orderDetails.length===0?(<h2>No Orders Yet</h2>):(
-            <>
-            {orderDetails.map((order,index)=>{
-              return(
-                <div className="Order-Details-container">
+          {orderDetails.map((order, index) => {
+            return (
+              <div className="Order-Details-container">
                 <div className="order-detail-card-flex">
-                <div className="order-card order-card-left">
+                  <div className="order-card order-card-left">
                     <div className="headers">
                       <p>Order NO </p>
                       <p>Product </p>
@@ -152,9 +156,10 @@ const Orders = () => {
                     <div className="header-values">
                       <p>: {order.orderId}</p>
                       <p>: {order.product_type}</p>
-                      <p>:  ₹ {formatIndianNumber(parseInt(order.total_amount))} </p>
+                      <p>
+                        : ₹ {formatIndianNumber(parseInt(order.total_amount))}{" "}
+                      </p>
                     </div>
-    
                   </div>
                   <div className=" order-card order-card-right">
                     <div className="headers">
@@ -162,187 +167,248 @@ const Orders = () => {
                     </div>
                     <div className="header-values">
                       <p>: {order.date_of_order}</p>
-                      {order.payment_status?(<>{order.payment_verified?(<>{order.deliveryStatus?(<p className="order-status status-green">Delivered</p>):(<p className="status-blue order-status">Shipped</p>)}</>):(<p className="status-yellow order-status">Processing</p>)}</>):(<p  className="status-red order-status">Payment Pending</p>)}
+                      {order.payment_status ? (
+                        <>
+                          {order.payment_verified ? (
+                            <>
+                              {order.deliveryStatus ? (
+                                <p className="order-status status-green">
+                                  Delivered
+                                </p>
+                              ) : (
+                                <p className="status-blue order-status">
+                                  Shipped
+                                </p>
+                              )}
+                            </>
+                          ) : (
+                            <p className="status-yellow order-status">
+                              Processing
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <p className="status-red order-status">
+                          Payment Pending
+                        </p>
+                      )}
                     </div>
-    
                   </div>
-                
                 </div>
                 <div className="details-btn-ctn">
-                {<button  className=""> <a href={order.invoiceUrl}>View Invoice</a></button>}
-                  {order.payment_verified ? (<button ><a href={order.paymentUrl}>View Receipt</a></button>):""}
-                  {!order.payment_status ? (<button onClick={()=>handlePaymentUpload(order)}>Upload Payment Details</button>):""}
+                  {
+                    <button className="">
+                      {" "}
+                      <a href={order.invoiceUrl}>View Invoice</a>
+                    </button>
+                  }
+                  {order.payment_verified ? (
+                    <button>
+                      <a href={order.paymentUrl}>View Receipt</a>
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  {!order.payment_status ? (
+                    <button onClick={() => handlePaymentUpload(order)}>
+                      Upload Payment Details
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
-              )
-            })}</>
-            
-          )}
-          </>
-        ):("Loading...")}
-        
-          
+            );
+          })}
+
           <div className="order-tables">
-          
-
-          <div className="tables-forweb" style={{ display: "flex", justifyContent: "space-around" }}>
-            <h2>Pending Payments</h2>
-            <button
-              style={{ height: "30px" }}
-              onClick={() => fetchOrders()}
-              className="button-7"
+            <h1 style={{ textAlign: "left" }}>
+              <BsFillCartCheckFill />
+              Orders
+            </h1>
+            <div
+              className="tables-forweb"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
             >
-              Refresh
-            </button>
-          </div>
-          <table className="table yellow-table">
-            <thead>
-              <tr>
-                <th>Product Name</th>
-                <th>Product Type</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Payment Status</th>
-                <th style={{ textAlign: "center" }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pendingPayments.length === 0 ? (
-                <h2
-                  style={{
-                    textAlign: "center",
-                    marginTop: "20px",
-                    width: "100%",
-                  }}
-                >
-                  No Payments Pending
-                </h2>
-              ) : (
-                <>
-                  {pendingPayments.map((order, index) => (
-                    <tr key={index}>
-                      <td>{order.product_name}</td>
-                      <td>{order.product_type}</td>
-                      <td>{order.product_quantity}</td>
-                      <td>
-                        ₹ {formatIndianNumber(parseInt(order.total_amount))}
-                      </td>
-                      <td>{order.payment_status === 0 ? "Pending" : "Paid"}</td>
-                      <td
-                        className="table=roe-btn"
-                        style={{ textAlign: "center" }}
-                      >
-                        <button
-                          style={{ marginRight: "10px" }}
-                          className="button-7"
+              <h2 style={{ margin: "0" }}>Pending Payments</h2>
+              <button
+                style={{ height: "30px" }}
+                onClick={() => fetchOrders()}
+                className="refreshBtn"
+              >
+                {isFetching ? (
+                  <>
+                    <div className="circle" /> Fetching
+                  </>
+                ) : (
+                  "Refresh"
+                )}
+              </button>
+            </div>
+            <table className="table yellow-table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Product Type</th>
+                  <th>Quantity</th>
+                  <th>Total Price</th>
+                  <th>Payment Status</th>
+                  <th style={{ textAlign: "center" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td style={{ textAlign: "center" }} colSpan={6}>
+                      <Spin size="large" tip="Loading products..." />
+                    </td>
+                  </tr>
+                ) : !pendingPayments.length ? (
+                  <tr>
+                    <td colSpan={6}>
+                      <Empty description="No products available" />
+                    </td>
+                  </tr>
+                ) : (
+                  <>
+                    {pendingPayments.map((order, index) => (
+                      <tr key={index}>
+                        <td>{order.product_name}</td>
+                        <td>{order.product_type}</td>
+                        <td>{order.product_quantity}</td>
+                        <td>
+                          ₹ {formatIndianNumber(parseInt(order.total_amount))}
+                        </td>
+                        <td>
+                          {order.payment_status === 0 ? "Pending" : "Paid"}
+                        </td>
+                        <td
+                          className="table=roe-btn"
+                          style={{ textAlign: "center" }}
                         >
-                          <a
-                            style={{
-                              textDecoration: "none",
-                              color: "white",
-                            }}
-                            href={order.invoiceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <button
+                            style={{ marginRight: "10px" }}
+                            className="button-7"
                           >
-                            View Invoice
-                          </a>
-                        </button>
-                        <button
-                          className="button-7"
-                          onClick={() => handlePaymentUpload(order)}
-                        >
-                          Upload Payment Details
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </>
-              )}
-            </tbody>
-          </table>
-
-          <h2>Your Orders</h2>
-          <table className="table yellow-table">
-            <thead>
-              <tr>
-                <th>Product Name</th>
-                <th>Product Type</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>OrderDate</th>
-                <th style={{ textAlign: "center" }}>Status</th>
-                <th style={{ textAlign: "center" }}>Invoice & Receipt</th>
-              </tr>
-            </thead>
-            <tbody>
-              {completedPayments.length === 0 ? (
-                <h2 style={{ textAlign: "center", marginTop: "20px" }}>
-                  No Orders yet
-                </h2>
-              ) : (
-                <>
-                  {completedPayments.map((order, index) => (
-                    <tr key={index}>
-                      <td>{order.product_name}</td>
-                      <td>{order.product_type}</td>
-                      <td style={{ textAlign: "center" }}>
-                        {order.product_quantity}
-                      </td>
-                      <td>
-                        ₹ {formatIndianNumber(parseInt(order.total_amount))}
-                      </td>
-                      <td>{order.date_of_order}</td>
-                      <td style={{ textAlign: "center" }}>
-                        {order.payment_verified
-                          ? order.delivery_status
-                            ? "Delivered"
-                            : "Payment Verified"
-                          : "Payment Verification Under Process"}
-                      </td>
-                      <td style={{ textAlign: "center" }}>
-                        <button
-                          style={{ marginRight: "20px" }}
-                          className="button-7"
-                        >
-                          <a
-                            style={{
-                              textDecoration: "none",
-                              color: "white",
-                            }}
-                            href={order.invoiceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            View Invoice
-                          </a>
-                        </button>
-                        {order.payment_verified ? (
-                          <button className="button-7">
                             <a
                               style={{
                                 textDecoration: "none",
                                 color: "white",
                               }}
-                              href={order.paymentUrl}
+                              href={order.invoiceUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              View Receipt
+                              View Invoice
                             </a>
                           </button>
-                        ) : (
-                          ""
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </>
-              )}
-            </tbody>
-          </table>
-        </div></>
-        
+                          <button
+                            className="button-7"
+                            onClick={() => handlePaymentUpload(order)}
+                          >
+                            Upload Payment Details
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
+              </tbody>
+            </table>
+
+            <h2 style={{ textAlign: "left" }}>Your Orders</h2>
+            <table className="table yellow-table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Product Type</th>
+                  <th>Quantity</th>
+                  <th>Total Price</th>
+                  <th>OrderDate</th>
+                  <th style={{ textAlign: "center" }}>Status</th>
+                  <th style={{ textAlign: "center" }}>Invoice & Receipt</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td style={{ textAlign: "center" }} colSpan={7}>
+                      <Spin size="large" tip="Loading Orders..." />
+                    </td>
+                  </tr>
+                ) : !completedPayments.length ? (
+                  <tr>
+                    <td colSpan={7}>
+                      <Empty description="No Orders available" />
+                    </td>
+                  </tr>
+                ) : (
+                  <>
+                    {completedPayments.map((order, index) => (
+                      <tr key={index}>
+                        <td>{order.product_name}</td>
+                        <td>{order.product_type}</td>
+                        <td style={{ textAlign: "center" }}>
+                          {order.product_quantity}
+                        </td>
+                        <td>
+                          ₹ {formatIndianNumber(parseInt(order.total_amount))}
+                        </td>
+                        <td>{order.date_of_order}</td>
+                        <td style={{ textAlign: "center" }}>
+                          {order.payment_verified
+                            ? order.delivery_status
+                              ? "Delivered"
+                              : "Payment Verified"
+                            : "Payment Verification Under Process"}
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <button
+                            style={{ marginRight: "20px" }}
+                            className="button-7"
+                          >
+                            <a
+                              style={{
+                                textDecoration: "none",
+                                color: "white",
+                              }}
+                              href={order.invoiceUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              View Invoice
+                            </a>
+                          </button>
+                          {order.payment_verified ? (
+                            <button className="button-7">
+                              <a
+                                style={{
+                                  textDecoration: "none",
+                                  color: "white",
+                                }}
+                                href={order.paymentUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                View Receipt
+                              </a>
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       {showModal && selectedOrder && (
