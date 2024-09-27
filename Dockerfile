@@ -41,6 +41,7 @@ COPY --from=build /app/build .
 
 # Expose port 443 for HTTPS
 EXPOSE 443
+EXPOSE 80
 
 # Start Nginx
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
